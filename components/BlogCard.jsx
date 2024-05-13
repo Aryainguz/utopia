@@ -22,18 +22,18 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
   };
   return (
     <ScrollView>
-      <View className="shadow-lg w-[90vw] p-4 rounded-lg h-auto bg-white dark:bg-primary mx-auto my-4">
+      <View className="shadow-lg w-[90vw] p-4 rounded-lg h-auto bg-primary mx-auto my-4">
         <View className="flex flex-row">
           <Image
             source={require("../assets/images/avatar.png")}
             className="h-11 w-11 rounded-full"
           />
-          <Text className="text-lg font-pbold text-left ml-5">@{name}</Text>
+          <Text className="text-lg font-pbold text-left ml-5 text-white">@{name}</Text>
         </View>
-        <Text className="font-pextralight relative left-16 bottom-4 mb-4">
+        <Text className="font-pextralight relative left-16 bottom-4 mb-4 text-white">
           - {username}
         </Text>
-        <Text className="font-pregular text-left mb-6">{blog}</Text>
+        <Text className="font-pregular text-left mb-6 text-white">{blog}</Text>
 
         <View
         style={{ position: "absolute", bottom: 13, right: 13, zIndex: 1}}
@@ -45,10 +45,10 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
         onPress={handlelog}
         /> :  
       
-        <AntDesign name="hearto" size={24} color="black"
+        <AntDesign name="hearto" size={24} color="white"
         onPress={handlelog}
         />}
-        <Text className="text-sm font-pmedium text-left relative left-2 mt-2">{showHeartcount}</Text>
+        <Text className="text-sm font-pmedium text-left relative left-2 mt-2 text-white">{showHeartcount}</Text>
 
         </View>
         
@@ -65,7 +65,7 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
             />
           )} */}
         {/* <Text className="text-violet-500 font-pbold">Bookmark</Text> */}
-        <Text className="text-sm font-pextralight text-left mt-2">{time}</Text>
+        <Text className="text-sm font-pextralight text-left mt-2 text-white">{time}</Text>
       </View>
     </ScrollView>
   );

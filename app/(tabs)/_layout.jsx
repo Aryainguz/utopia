@@ -9,9 +9,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="items-center justify-center gap-1">
-      <Ionicons name={icon} size={24} color={"#161622"} />
+      <Ionicons name={icon} size={24} color={"#fff"} />
       <Text
-        className={`${focused ? "font-psemibold text-sm" : "font-pregular text-xs"}`}
+        className={`${focused ? "font-psemibold text-sm text-white" : "font-pregular text-xs text-white"}`}
       >
         {name}
       </Text>
@@ -25,8 +25,16 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: "#161622"
+          },
+          headerStyle: {
+            backgroundColor: "#161622",
           
+          },
+          headerTintColor: "#fff"
         }}
+
 
       >
         <Tabs.Screen

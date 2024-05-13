@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,12 +9,25 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import FormField from "../../components/FormField";
 
 const Profile = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const submit = async () => {};
   return (
     <>
+        
+        <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className="h-72 rounded-b-[100px] bg-black-200 p-4 flex items-center">
+        <View
+          className="w-full flex justify-center h-full px-4 my-6"
+        >
+
+<View className="p-4 flex items-center">
           <Text className="text-stone-200 my-4 font-pbold text-3xl">
             @Profile
           </Text>
@@ -22,20 +36,32 @@ const Profile = () => {
             className="h-28 w-28 rounded-full"
           />
         </View>
-        <View className="h-72 p-4 flex items-center">
-          <TextInput placeholder="useless placeholder" style={styles.input} />
-          <TextInput
-            style={styles.input}
-            placeholder="useless placeholder"
-            keyboardType="numeric"
+
+          <FormField
+            title="Email"
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, email: e })}
+            otherStyles="mt-7"
+            keyboardType="email-address"
           />
-          <TouchableOpacity className="rounded-xl w-32 p-4 bg-violet-500">
-            <Text className="text-stone-200 font-pbold text-xl text-center">
-              Update
-            </Text>
-          </TouchableOpacity>
+
+          <FormField
+            title="Password"
+            value={form.password}
+            handleChangeText={(e) => setForm({ ...form, password: e })}
+            otherStyles="mt-7"
+          />
+
+        <TouchableOpacity className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]">
+          <Text className="text-white font-pregular text-center text-base"> 
+            Log in
+          </Text>
+        </TouchableOpacity>
+
+          
         </View>
       </ScrollView>
+    </SafeAreaView>
     </>
   );
 };

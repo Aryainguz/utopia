@@ -5,7 +5,7 @@ import BlogCard from "./BlogCard";
 
 const ExploreTimeline = () => {
   return (
-    <ScrollView >
+    <ScrollView className="bg-slate-800" >
       <View>
 
         {data.map((item, index) => {
