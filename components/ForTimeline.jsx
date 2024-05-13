@@ -15,6 +15,7 @@ const ForTimeline = () => {
               username={item.username}
               time={item.time}
               blog={item.blog}
+              heartCount={item.heartCount}
               key={index}
             />
           );

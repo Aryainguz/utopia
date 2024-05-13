@@ -2,11 +2,14 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { icons } from "../../constants";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View className="items-center justify-center gap-2">
-      <Image source={icon} resizeMode="contain" className="w-6 h-5" />
+    <View className="items-center justify-center gap-1">
+      <Ionicons name={icon} size={24} color={"#161622"} />
       <Text
         className={`${focused ? "font-psemibold text-sm" : "font-pregular text-xs"}`}
       >
@@ -22,7 +25,9 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
+          
         }}
+
       >
         <Tabs.Screen
           name="timeline"
@@ -31,7 +36,7 @@ const TabsLayout = () => {
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home2}
+                icon= {"home"}
                 color={color}
                 name="Timeline"
                 focused={focused}
@@ -41,15 +46,15 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="explore"
+          name="create"
           options={{
-            title: "Explore",
+            title: "Create",
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.trending}
+                icon={"create"}
                 color={color}
-                name="Explore"
+                name="Create"
                 focused={focused}
               />
             ),
@@ -57,15 +62,15 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="bookmark"
+          name="notifications"
           options={{
-            title: "Bookmark",
+            title: "Notifications",
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark2}
+                icon={"notifications"}
                 color={color}
-                name="Bookmark"
+                name="Notifcations"
                 focused={focused}
               />
             ),
@@ -79,7 +84,7 @@ const TabsLayout = () => {
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile2}
+                icon={"person-circle"}
                 color={color}
                 name="Profile"
                 focused={focused}

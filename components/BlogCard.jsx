@@ -1,9 +1,24 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import React, { useState } from "react";
+import {
+  Image,
+  ScrollView,
+  Text,
+  View
+} from "react-native";
 
-const BlogCard = ({ name, time, username, blog, bookmarked }) => {
+
+const BlogCard = ({ name, time, username, blog,heartCount }) => {
+
+  const [loved, setLoved] = useState(false);
+  const [showHeartcount,setshowHeartCount] = useState(heartCount);
+
   const handlelog = () => {
-    console.log("bookmarked");
+    setLoved(!loved);
+    if(heartCount <=0){
+      setshowHeartCount(0);
+    }
+    setshowHeartCount(loved ? showHeartcount - 1 : showHeartcount + 1);
   };
   return (
     <ScrollView>
@@ -18,12 +33,27 @@ const BlogCard = ({ name, time, username, blog, bookmarked }) => {
         <Text className="font-pextralight relative left-16 bottom-4 mb-4">
           - {username}
         </Text>
-        <Text className="font-pregular text-left">{blog}</Text>
-        <TouchableOpacity
-          onPress={handlelog}
-          className="relative left-[61vw] top-6"
+        <Text className="font-pregular text-left mb-6">{blog}</Text>
+
+        <View
+        style={{ position: "absolute", bottom: 13, right: 13, zIndex: 1}}
         >
-          {/* {bookmarked ? (
+
+
+      {
+        loved ? <AntDesign name="heart" size={24} color="red"
+        onPress={handlelog}
+        /> :  
+      
+        <AntDesign name="hearto" size={24} color="black"
+        onPress={handlelog}
+        />}
+        <Text className="text-sm font-pmedium text-left relative left-2 mt-2">{showHeartcount}</Text>
+
+        </View>
+        
+
+        {/* {bookmarked ? (
             <Image
               className="h-5 w-5"
               source={require("../assets/images/bookmark-colored.png")}
@@ -34,10 +64,8 @@ const BlogCard = ({ name, time, username, blog, bookmarked }) => {
               source={require("../assets/images/bookmark.png")}
             />
           )} */}
-          <Text className="text-violet-500 font-pbold">Bookmark</Text>
-        </TouchableOpacity>
+        {/* <Text className="text-violet-500 font-pbold">Bookmark</Text> */}
         <Text className="text-sm font-pextralight text-left mt-2">{time}</Text>
-
       </View>
     </ScrollView>
   );

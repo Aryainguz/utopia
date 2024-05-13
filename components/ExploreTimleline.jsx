@@ -1,13 +1,28 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import CreateCard from './CreateCard'
+import React from "react";
+import { ScrollView, View } from "react-native";
+import data from "../data.json";
+import BlogCard from "./BlogCard";
 
 const ExploreTimeline = () => {
   return (
-   <ScrollView>
-        <CreateCard />
+    <ScrollView >
+      <View>
 
-   </ScrollView>
+        {data.map((item, index) => {
+          return (
+            <BlogCard
+              name={item.name}
+              username={item.username}
+              time={item.time}
+              blog={item.blog}
+              heartCount={item.heartCount}
+              key={index}
+            />
+          );
+        })}
+
+      </View>
+    </ScrollView>
   )
 }
 
