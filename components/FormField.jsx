@@ -2,6 +2,8 @@ import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 
 import { icons } from "../constants";
+import { Ionicons } from "@expo/vector-icons";
+
 
 const FormField = ({
   title,
@@ -9,15 +11,31 @@ const FormField = ({
   placeholder,
   handleChangeText,
   otherStyles,
+  username,
+  regenUsername,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+
+
+
+
 
   return (
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base text-gray-100 font-pmedium">{title}</Text>
 
       <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-violet-400 flex flex-row items-center">
+      {title === "Username" ? (
+        <TextInput
+          className="flex-1 text-white font-psemibold text-base"
+          value={username}
+          placeholder={username}
+          placeholderTextColor="#7B7B8B"
+          editable={false}
+          {...props}
+        />
+      ) : (
         <TextInput
           className="flex-1 text-white font-psemibold text-base"
           value={value}
@@ -27,7 +45,8 @@ const FormField = ({
           secureTextEntry={title === "Password" && !showPassword}
           {...props}
         />
-
+      )}
+      
         {title === "Password" && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
@@ -37,6 +56,13 @@ const FormField = ({
             />
           </TouchableOpacity>
         )}
+
+{title === "Username" && (
+          <TouchableOpacity onPress={()=>regenUsername()}>
+           <Ionicons name="reload" size={24} color={"gray"} />
+          </TouchableOpacity>
+        )}
+
       </View>
     </View>
   );

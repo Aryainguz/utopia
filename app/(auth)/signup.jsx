@@ -1,6 +1,8 @@
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Button,
   Dimensions,
   Image,
@@ -15,6 +17,7 @@ import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { generateUsername } from "friendly-username-generator";
 
 const items = [
   { name: "Software", id: 1 },
@@ -27,15 +30,47 @@ const items = [
 const SignUp = () => {
   const [selectedItems, setSelectedItems] = useState([]);
 
+  const [isLoading, setLoading] = useState(false);
+
+  const [username, setUsername] = useState(generateUsername());
+  const [interests, setInterests] = useState([]);
+
+
+  const regenUsername = () => {
+    const options = {
+      useHyphen: true, // if false, a hyphen will NOT be used. (True by default)
+      useRandomNumber: false, // if false, a random number will NOT be appended to the end of the random username. (True by default)
+    };
+    const gen_username = generateUsername(options);
+    setUsername(gen_username);
+  };
+
   const [form, setForm] = useState({
-    username: "",
+    username: username,
     password: "",
+    interests: interests,
   });
 
-  const submit = async () => {};
+  const submit = async () => {
+    if (form.password === "" || selectedItems.length === 0) {
+      Alert.alert("Fill all fields", "Please fill in all fields");
+    }
+    if (form.password.length < 8) {
+      Alert.alert("Password is too short", "Password must be at least 8 characters");
+    }
+
+    setLoading(true);
+    try {
+      form.interests = selectedItems.map((item) => items[item-1].name);
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const changeSelectedItems = (selectedItems) => {
-    if (selectedItems.length > 2) {
+    if (selectedItems.length > 3) {
       selectedItems.shift();
     }
     setSelectedItems(selectedItems);
@@ -60,15 +95,15 @@ const SignUp = () => {
 
           <FormField
             title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
             otherStyles="mt-7"
             keyboardType="username-address"
+            username={username}
+            regenUsername={regenUsername}
           />
 
           <View className="space-y-2 mt-2">
             <Text className="text-base text-gray-100 font-pmedium py-2">
-              Select Clans
+              Select Interests (Max 3)
             </Text>
             <View className="w-full h-16 bg-black-100 rounded-2xl my-7 border-black-200 focus:border-violet-400">
               <SectionedMultiSelect
@@ -89,26 +124,43 @@ const SignUp = () => {
             title="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-3"
+            otherStyles={
+              selectedItems.length == 3
+                ? "mt-14"
+                : selectedItems.length > 0
+                ? "mt-6"
+                : "mt-0"
+            }
           />
 
-          <TouchableOpacity className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]">
-            <Link href={"/timeline"}>
-              <Text className="text-white font-pregular text-center text-base">
-                SignUp
-              </Text>
-            </Link>
+          <TouchableOpacity
+            className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]"
+            activeOpacity={0.7}
+            disabled={isLoading}
+            onPress={submit}
+          >
+            <Text className="text-white font-pregular text-center text-base">
+              SignUp {isLoading && (
+              <ActivityIndicator
+                animating={isLoading}
+                color="#fff"
+                size="small"
+                className="ml-2"
+              />
+            )}
+            </Text>
+            
           </TouchableOpacity>
 
           <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
+              Already have an account?
             </Text>
             <Link
-              href="/signup"
+              href="/signin"
               className="text-lg font-psemibold text-violet-400"
             >
-              Signup
+              Login
             </Link>
           </View>
         </View>
