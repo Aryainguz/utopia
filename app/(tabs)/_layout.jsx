@@ -29,7 +29,7 @@ const TabsLayout = () => {
             backgroundColor: "#161622"
           },
           headerStyle: {
-            backgroundColor: "#161622",
+            backgroundColor: "#161622"
           
           },
           headerTintColor: "#fff"
@@ -54,15 +54,15 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="create"
+          name="converse"
           options={{
-            title: "Create",
+            title: "Converse",
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={"create"}
+                icon={"chatbubble-ellipses"}
                 color={color}
-                name="Create"
+                name="Converse"
                 focused={focused}
               />
             ),

@@ -2,7 +2,7 @@ import { Link } from 'expo-router'
 import React from 'react'
 import { ScrollView, Text } from 'react-native'
 
-const Explore = () => {
+const Converse = () => {
   return (
     <>
     <ScrollView className="bg-slate-800">
@@ -16,4 +16,4 @@ const Explore = () => {
   )
 }
 
-export default Explore
+export default Converse
