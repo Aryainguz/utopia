@@ -32,6 +32,9 @@ Express yourself in
         </Link>
       </TouchableOpacity>
       </View>
+      <Text className="text-white font-pextralight relative bottom-28 left-10"> 
+         Software By The Xiting Way
+        </Text>
     <Image
      source={illustration}
      className="absolute h-72 w-full bottom-[0px]"

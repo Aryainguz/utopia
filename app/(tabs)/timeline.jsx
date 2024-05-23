@@ -50,7 +50,7 @@ const timeline = ()=>{
     }}
     >
       <Tab.Screen name="For You" component={ForTimeline} />
-      <Tab.Screen name="Explore" component={ExploreTimeline} />
+      <Tab.Screen name="Explore" component={ForTimeline} />
     </Tab.Navigator>
   );
 }

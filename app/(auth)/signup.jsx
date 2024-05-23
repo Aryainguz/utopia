@@ -18,6 +18,7 @@ import FormField from "../../components/FormField";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { generateUsername } from "friendly-username-generator";
+import SelectDropdown from "react-native-select-dropdown";
 
 const items = [
   { name: "Software", id: 1 },
@@ -26,6 +27,11 @@ const items = [
   { name: "Enterntainment", id: 4 },
   { name: "Politics and News", id: 5 },
 ];
+
+const genders = [
+  { title: 'Male', icon: 'male' },
+  { title: 'Female', icon: 'female' },
+]
 
 const SignUp = () => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -100,6 +106,34 @@ const SignUp = () => {
             username={username}
             regenUsername={regenUsername}
           />
+
+
+<SelectDropdown
+    data={genders}
+
+    renderButton={(selectedItem, isOpened) => {
+      return (
+        <View style={styles.dropdownButtonStyle}>
+          {selectedItem && (
+            <Icon name={selectedItem.icon} style={styles.dropdownButtonIconStyle} />
+          )}
+          <Text style={styles.dropdownButtonTxtStyle}>
+            {(selectedItem && selectedItem.title) || 'Select your gender'}
+          </Text>
+        </View>
+      );
+    }}
+    renderItem={(item, index, isSelected) => {
+      return (
+        <View style={{...styles.dropdownItemStyle, ...(isSelected && {backgroundColor: '#D2D9DF'})}}>
+          <Icon name={item.icon} style={styles.dropdownItemIconStyle} />
+          <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
+        </View>
+      );
+    }}
+    showsVerticalScrollIndicator={false}
+    dropdownStyle={styles.dropdownMenuStyle}
+  />
 
           <View className="space-y-2 mt-2">
             <Text className="text-base text-gray-100 font-pmedium py-2">
@@ -176,6 +210,51 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 4,
   },
+  dropdownButtonStyle: {
+    width: 200,
+    height: 50,
+    backgroundColor: '#E9ECEF',
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  dropdownButtonTxtStyle: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#151E26',
+  },
+  dropdownButtonArrowStyle: {
+    fontSize: 28,
+  },
+  dropdownButtonIconStyle: {
+    fontSize: 28,
+    marginRight: 8,
+  },
+  dropdownMenuStyle: {
+    backgroundColor: '#E9ECEF',
+    borderRadius: 8,
+  },
+  dropdownItemStyle: {
+    width: '100%',
+    flexDirection: 'row',
+    paddingHorizontal: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  dropdownItemTxtStyle: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#151E26',
+  },
+  dropdownItemIconStyle: {
+    fontSize: 28,
+    marginRight: 8,
+  }
 });
 
 export default SignUp;
