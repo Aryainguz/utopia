@@ -22,7 +22,7 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
   };
   return (
     <ScrollView>
-      <View className="shadow-lg w-[90vw] p-4 rounded-lg h-auto bg-primary mx-auto my-4">
+      <View className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
         <View className="flex flex-row">
           <Image
             source={require("../assets/images/avatar.png")}
@@ -31,7 +31,7 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
           <Text className="text-lg font-pbold text-left ml-5 text-white">@{name}</Text>
         </View>
         <Text className="font-pextralight relative left-16 bottom-4 mb-4 text-white">
-          - {username}
+          - he/him
         </Text>
         <Text className="font-pregular text-left mb-6 text-white">{blog}</Text>
 
@@ -53,18 +53,7 @@ const BlogCard = ({ name, time, username, blog,heartCount }) => {
         </View>
         
 
-        {/* {bookmarked ? (
-            <Image
-              className="h-5 w-5"
-              source={require("../assets/images/bookmark-colored.png")}
-            />
-          ) : (
-            <Image
-              className="h-5 w-5"
-              source={require("../assets/images/bookmark.png")}
-            />
-          )} */}
-        {/* <Text className="text-violet-500 font-pbold">Bookmark</Text> */}
+     
         <Text className="text-sm font-pextralight text-left mt-2 text-white">{time}</Text>
       </View>
     </ScrollView>
