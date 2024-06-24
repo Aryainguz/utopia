@@ -17,6 +17,7 @@ const ExploreTimeline = () => {
               blog={item.blog}
               heartCount={item.heartCount}
               key={index}
+              uri={item.uri}
             />
           );
         })}

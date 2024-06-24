@@ -1,43 +1,49 @@
 [
   {
-    "name": "Aryainguz",
-    "username": "poet",
+    "name": "Sa20hil",
+    "username": "Designer",
     "time": "10 seconds ago",
-    "blog": "This is my first blog post",
-    "heartCount": 0
+    "blog": "I am in buildspace and I am learning to code.Here to say whatever I want to say",
+    "heartCount": 0,
+    "uri":"https://forkast.news/wp-content/uploads/2022/03/NFT-Avatar.png"
+  },
+  {
+    "name": "Kamal Kashyap",
+    "username": "Expo",
+    "time": "1 hour ago",
+    "blog": "I love Expo and React Native",
+    "heartCount": 3,
+    "uri":"https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg"
   },
   {
     "name": "Aryainguz",
     "username": "poet",
-    "time": "10 seconds ago",
-    "blog": "This is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog post",
-    "heartCount": 3
-  },
-  {
-    "name": "Aryainguz",
-    "username": "poet",
-    "time": "10 seconds ago",
-    "blog": "This is my first blog post",
-    "heartCount": 2
+    "time": "3 seconds ago",
+    "blog": "I know my ex is watching my blog so I am writing this blog to make her feel jealous and I am happy that she is watching my blog",
+    "heartCount": 2,
+    "uri":"https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
   },  {
-    "name": "Aryainguz",
-    "username": "poet",
-    "time": "10 seconds ago",
-    "blog": "This is my first blog post",
-    "heartCount": 0
+    "name": "Manik",
+    "username": "Enterprenuer",
+    "time": "5 seconds ago",
+    "blog": "I just don't think big I think Giant and my startup is going to be the next big thing in the world",
+    "heartCount": 0,
+    "uri":"https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg"
   },
   {
-    "name": "Aryainguz",
-    "username": "poet",
-    "time": "10 seconds ago",
-    "blog": "This is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog postThis is my first blog post",
-    "heartCount": 3
+    "name": "Gurpreet",
+    "username": "DevRel",
+    "time": "10 hours ago",
+    "blog": "The Xiting Way is pretty cool love building stuff with them",
+    "heartCount": 3,
+    "uri":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEwS4SWPGhmMyObNVNGJF8ojQqYz8W28nDgA&s"
   },
   {
-    "name": "Aryainguz",
-    "username": "poet",
-    "time": "10 seconds ago",
+    "name": "Gurpreet",
+    "username": "DevRel",
+    "time": "11 hours ago",
     "blog": "This is my first blog post",
-    "heartCount": 2
+    "heartCount": 2,
+    "uri":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEwS4SWPGhmMyObNVNGJF8ojQqYz8W28nDgA&s"
   }
 ]
