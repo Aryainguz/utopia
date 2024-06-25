@@ -12,6 +12,8 @@ import {
 
 const BlogCard = ({ name, time, username, blog,heartCount,uri }) => {
 
+  const previewLimit = 175;
+
   const [loved, setLoved] = useState(false);
   const [showHeartcount,setshowHeartCount] = useState(heartCount);
 
@@ -24,7 +26,7 @@ const BlogCard = ({ name, time, username, blog,heartCount,uri }) => {
   };
   return (
     // using Link asChild to wrap the Pressable component and make it clickable and using Pressable instead of View to make the card clickable since View does not have an onPress prop and using Link asChild passes click functionality to first child
-    <Link href={'/Create'} asChild>   
+    <Link href={'/post/:id'} asChild>   
       <Pressable className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
         <View className="flex flex-row">
           <Image
@@ -36,7 +38,13 @@ const BlogCard = ({ name, time, username, blog,heartCount,uri }) => {
         <Text className="font-pextralight relative left-16 bottom-4 mb-4 text-white">
           - he/him
         </Text>
-        <Text className="font-pregular text-left mb-6 text-white">{blog}</Text>
+        <Text className="font-pregular text-md text-left mb-6 text-white">
+        {`${blog.slice(0, previewLimit)}`}
+        {blog.length > previewLimit ? "..." : ""}
+        <Text className="text-purple-500">
+        {blog.length > previewLimit ? "Show more" : ""}
+        </Text>
+          </Text>
 
         <View
         style={{ position: "absolute", bottom: 13, right: 13, zIndex: 1}}
