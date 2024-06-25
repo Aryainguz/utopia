@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native"; // Import useRoute
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
@@ -8,7 +9,6 @@ import {
 import { FloatingAction } from "react-native-floating-action";
 import data from "../data.json";
 import BlogCard from "./BlogCard";
-import { Ionicons } from "@expo/vector-icons";
 
 const ForTimeline = () => {
   const [showModal, setShowModal] = useState(false);
@@ -53,6 +53,7 @@ const ForTimeline = () => {
             blog={item.blog}
             heartCount={item.heartCount}
             uri={item.uri}
+            id={item.id}
           />
         )}
         onScroll={Animated.event(

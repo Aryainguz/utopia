@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 
-const BlogCard = ({ name, time, username, blog,heartCount,uri }) => {
+const BlogCard = ({ name, time, username, blog,heartCount,uri,id }) => {
 
   const previewLimit = 175;
 
@@ -26,7 +26,7 @@ const BlogCard = ({ name, time, username, blog,heartCount,uri }) => {
   };
   return (
     // using Link asChild to wrap the Pressable component and make it clickable and using Pressable instead of View to make the card clickable since View does not have an onPress prop and using Link asChild passes click functionality to first child
-    <Link href={'/post/:id'} asChild>   
+    <Link href={`/blog/${id}`} asChild>   
       <Pressable className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
         <View className="flex flex-row">
           <Image
