@@ -1,80 +1,45 @@
-import React, { useState } from "react";
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import FormField from "../../components/FormField";
+// app/profile/index.js
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import React from "react";
+import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
+import LikedPosts from "../../components/LikedPosts";
+import UserPosts from "../../components/UserPosts";
+import { Feather } from "@expo/vector-icons";
 
-const Profile = () => {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-
-  const submit = async () => {};
+const ProfilePage = () => {
+  const Tab = createMaterialTopTabNavigator();
   return (
-    <>
-        
-        <SafeAreaView className="bg-primary h-full">
-      <ScrollView>
-        <View
-          className="w-full flex justify-center h-full px-4 my-6"
-        >
-
-<View className="p-4 flex items-center">
-          <Text className="text-stone-200 my-4 font-pbold text-3xl">
-            @Profile
-          </Text>
+    <SafeAreaView className="flex-1 bg-primary">
+      <View className="flex-row justify-center p-4">
+        <View className="items-center mt-6">
           <Image
-            source={require("../../assets/images/avatar.png")}
-            className="h-28 w-28 rounded-full"
+            source={{
+              uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
+            }}
+            className="h-20 w-20 rounded-full"
           />
+          <Text className="text-white text-lg mt-4">@username</Text>
         </View>
-
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
-            keyboardType="email-address"
-          />
-
-          <FormField
-            title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
-          />
-
-        <TouchableOpacity className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]">
-          <Text className="text-white font-pregular text-center text-base"> 
-            Log in
-          </Text>
-        </TouchableOpacity>
-
-          
+        <View className="absolute right-0 mr-6 mt-4">
+          <Feather name="settings" size={24} color="white" />
         </View>
-      </ScrollView>
+      </View>
+      <View className="flex-1 mt-4">
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveTintColor: "white",
+            tabBarInactiveTintColor: "gray",
+            tabBarIndicatorStyle: { backgroundColor: "#7C3AED" },
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarStyle: { backgroundColor: "#161622" },
+          }}
+        >
+          <Tab.Screen name="Posts" component={UserPosts} />
+          <Tab.Screen name="Likes" component={LikedPosts} />
+        </Tab.Navigator>
+      </View>
     </SafeAreaView>
-    </>
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    height: 60,
-    width: 350,
-    borderRadius: 17,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
-
-export default Profile;
+export default ProfilePage;

@@ -3,13 +3,14 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { icons } from "../../constants";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { AntDesign, Feather } from "@expo/vector-icons";
 
 
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="items-center justify-center gap-1">
-      <Ionicons name={icon} size={24} color={"#fff"} />
+      <Feather name={icon} size={20} color={"#fff"} />
       <Text
         className={`${focused ? "font-psemibold text-sm text-white" : "font-pregular text-xs text-white"}`}
       >
@@ -60,7 +61,7 @@ const TabsLayout = () => {
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={"chatbubble-ellipses"}
+                icon={"mail"}
                 color={color}
                 name="Converse"
                 focused={focused}
@@ -76,7 +77,7 @@ const TabsLayout = () => {
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={"notifications"}
+                icon={"bell"}
                 color={color}
                 name="Notifcations"
                 focused={focused}
@@ -92,7 +93,7 @@ const TabsLayout = () => {
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={"person-circle"}
+                icon={"user"}
                 color={color}
                 name="Profile"
                 focused={focused}
