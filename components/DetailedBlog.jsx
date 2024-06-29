@@ -1,19 +1,9 @@
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Link } from "expo-router";
 import React, { useState } from "react";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Text, View } from "react-native";
 
-const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
-  const previewLimit = 175;
-
+const DetailedBlog = ({ name, uri, blog, time, heartCount }) => {
   const [loved, setLoved] = useState(false);
   const [showHeartcount, setshowHeartCount] = useState(heartCount);
 
@@ -25,7 +15,6 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
     setshowHeartCount(loved ? showHeartcount - 1 : showHeartcount + 1);
   };
   return (
-    // using Link asChild to wrap the Pressable component and make it clickable and using Pressable instead of View to make the card clickable since View does not have an onPress prop and using Link asChild passes click functionality to first child
     <View className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
       <View className="flex flex-row justify-between items-center mb-2">
         <View className="flex flex-row items-center">
@@ -46,16 +35,10 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
       <Text className="font-pextralight relative left-16 bottom-6 mb-4 text-white">
         - he/him
       </Text>
-      
-      <Link href={`/blog/${id}`} asChild className="relative bottom-2">
-        <Text className="font-pregular text-md text-left mb-6 text-white">
-          {`${blog.slice(0, previewLimit)}`}
-          {blog.length > previewLimit ? "..." : ""}
-          <Text className="text-purple-500">
-            {blog.length > previewLimit ? "Show more" : ""}
-          </Text>
-        </Text>
-      </Link>
+
+      <Text className="font-pregular text-md text-left mb-6 text-white relative bottom-2" >
+        {blog}
+      </Text>
 
       <View
         style={{
@@ -88,8 +71,6 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
             {showHeartcount}
           </Text>
         </View>
-
-
       </View>
 
       <Text className="text-sm font-pextralight text-left mt-2 text-white">
@@ -99,4 +80,4 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
   );
 };
 
-export default BlogCard;
+export default DetailedBlog;

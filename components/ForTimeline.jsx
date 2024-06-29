@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native"; // Import useRoute
 import { router } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
+  RefreshControl,
   View
 } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
@@ -11,7 +11,19 @@ import data from "../data.json";
 import BlogCard from "./BlogCard";
 
 const ForTimeline = () => {
-  const [showModal, setShowModal] = useState(false);
+
+
+  const [refreshing, setRefreshing] = useState(false);
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Simulate a network request
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
+
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const scrollY = useRef(new Animated.Value(0)).current;
   const previousScrollY = useRef(0); // Use useRef for previousScrollY
@@ -30,15 +42,6 @@ const ForTimeline = () => {
     };
   }, [scrollY]);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const route = useRoute(); // Use useRoute to get the current route
 
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
@@ -61,6 +64,9 @@ const ForTimeline = () => {
           { useNativeDriver: true }
         )}
         scrollEventThrottle={16}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#fff" />
+        }
       />
       {isScrollingUp && (
         <FloatingAction
