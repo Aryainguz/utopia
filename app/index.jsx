@@ -1,8 +1,8 @@
+import { router } from "expo-router";
 import React from "react";
 import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import illustration from "../assets/images/Saly-17.png";
-import { Link, router } from "expo-router";
 import logo from "../assets/images/triangular-logo.png";
 
 

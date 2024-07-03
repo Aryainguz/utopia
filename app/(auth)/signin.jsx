@@ -1,13 +1,12 @@
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
-  Button,
   Dimensions,
   Image,
   ScrollView,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/images/triangular-logo.png";

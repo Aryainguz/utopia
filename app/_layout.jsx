@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { Slot, SplashScreen, Stack } from "expo-router";
+import { Slot, SplashScreen } from "expo-router";
 import React, { useEffect } from "react";
 
 

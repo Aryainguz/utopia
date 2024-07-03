@@ -1,8 +1,7 @@
+import { Stack, useRouter } from 'expo-router';
 import React from 'react';
-import { Stack } from 'expo-router';
 import { Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';  // Import the icon library
-import { useRouter } from 'expo-router';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon library
 
 const Layout = () => {
   const router = useRouter();
@@ -14,7 +13,7 @@ const Layout = () => {
         options={{
           title: 'Create Post',
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()} style={{ marginHorizontal: 10 }}>
+            <TouchableOpacity onPress={() => router.navigate("timeline")} style={{ marginHorizontal: 10 }}>
               <Icon name="arrow-back" size={25} color="#fff" />
             </TouchableOpacity>
           ),

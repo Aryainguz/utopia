@@ -1,24 +1,23 @@
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { generateUsername } from "friendly-username-generator";
 import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Button,
   Dimensions,
   Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import SelectDropdown from "react-native-select-dropdown";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { generateUsername } from "friendly-username-generator";
-import SelectDropdown from "react-native-select-dropdown";
 
 const items = [
   { name: "Software", id: 1 },
