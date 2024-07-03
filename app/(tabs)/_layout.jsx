@@ -82,21 +82,6 @@ const TabsLayout = () => {
           }}
         />
 
-        <Tabs.Screen
-          name="converse"
-          options={{
-            title: "Converse",
-            headerShown: true,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={"mail"}
-                color={color}
-                name="Converse"
-                focused={focused}
-              />
-            ),
-          }}
-        />
 
         <Tabs.Screen
           name="notifications"

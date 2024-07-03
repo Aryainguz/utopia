@@ -1,11 +1,17 @@
 // app/profile/index.js
-import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { router } from "expo-router";
 import React from "react";
-import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import LikedPosts from "../../components/LikedPosts";
 import UserPosts from "../../components/UserPosts";
-import { router } from "expo-router";
 
 const ProfilePage = () => {
   const Tab = createMaterialTopTabNavigator();
@@ -24,27 +30,21 @@ const ProfilePage = () => {
           <View className="flex-row mt-4">
             <Text className="text-white mr-2">100</Text>
 
-            <TouchableOpacity onPress={
-              () => router.navigate("following")
-            }>
-            <Text className="text-gray-400 mr-2">Following</Text>
+            <TouchableOpacity onPress={() => router.navigate("following")}>
+              <Text className="text-gray-400 mr-2">Following</Text>
             </TouchableOpacity>
 
             <Text className="text-white mx-2">100</Text>
-            <TouchableOpacity 
-            onPress={
-              () => router.navigate("followers")
-            }
-            >
-            <Text className="text-gray-400">Followers</Text>
+            <TouchableOpacity onPress={() => router.navigate("followers")}>
+              <Text className="text-gray-400">Followers</Text>
             </TouchableOpacity>
-
-            </View>
-
-
+          </View>
         </View>
         <View className="absolute right-0 mr-6 mt-4">
-          <Feather name="settings" size={24} color="white" />
+          
+          {/* <Feather name="settings" size={24} color="white" /> */}
+
+          <AntDesign name="adduser" size={28} color="white" />
         </View>
       </View>
       <View className="flex-1 mt-4">
