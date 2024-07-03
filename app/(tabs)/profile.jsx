@@ -1,10 +1,11 @@
 // app/profile/index.js
+import { Feather } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React from "react";
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import LikedPosts from "../../components/LikedPosts";
 import UserPosts from "../../components/UserPosts";
-import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const ProfilePage = () => {
   const Tab = createMaterialTopTabNavigator();
@@ -19,6 +20,28 @@ const ProfilePage = () => {
             className="h-20 w-20 rounded-full"
           />
           <Text className="text-white text-lg mt-4">@username</Text>
+
+          <View className="flex-row mt-4">
+            <Text className="text-white mr-2">100</Text>
+
+            <TouchableOpacity onPress={
+              () => router.navigate("following")
+            }>
+            <Text className="text-gray-400 mr-2">Following</Text>
+            </TouchableOpacity>
+
+            <Text className="text-white mx-2">100</Text>
+            <TouchableOpacity 
+            onPress={
+              () => router.navigate("followers")
+            }
+            >
+            <Text className="text-gray-400">Followers</Text>
+            </TouchableOpacity>
+
+            </View>
+
+
         </View>
         <View className="absolute right-0 mr-6 mt-4">
           <Feather name="settings" size={24} color="white" />

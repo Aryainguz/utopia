@@ -4,9 +4,7 @@ import CreateCard from '../../components/CreateCard'
 
 const Create = () => {
   return (
-   <>
    <CreateCard />
-   </>
   )
 }
 
