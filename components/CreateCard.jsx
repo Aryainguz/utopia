@@ -37,7 +37,7 @@ const CreateCard = () => {
     multiline={true}
       onChangeText={onChangeText}
       placeholderTextColor={'#718096'}
-      maxLength={275}
+      maxLength={225}
       value={text}
       placeholder="Write whatever you want..."
       className="ml-5 text-white placeholder:text-lg font-pregular placeholder-opacity-50 w-[100%] flex-wrap pr-11" 
@@ -48,7 +48,7 @@ const CreateCard = () => {
   {
     text.length == 275 ?
     <Text className="text-red-500 text-md font-pregular">You have reached the maximum limit of 200 characters</Text>
-    : <Text className="text-white text-md font-pregular">{text.length}/275</Text>
+    : <Text className="text-white text-md font-pregular">{text.length}/225</Text>
     }
   </View> 
   </ScrollView >

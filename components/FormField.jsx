@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { icons } from "../constants";
 import { Ionicons } from "@expo/vector-icons";
-
+import { icons } from "../constants";
 
 const FormField = ({
   title,
@@ -17,36 +16,30 @@ const FormField = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-
-
-
-
   return (
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base text-gray-100 font-pmedium">{title}</Text>
 
       <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-violet-400 flex flex-row items-center">
-      {title === "Username" ? (
-        <TextInput
-          className="flex-1 text-white font-psemibold text-base"
-          value={username}
-          placeholder={username}
-          placeholderTextColor="#7B7B8B"
-          editable={false}
-          {...props}
-        />
-      ) : (
-        <TextInput
-          className="flex-1 text-white font-psemibold text-base"
-          value={value}
-          placeholder={placeholder}
-          placeholderTextColor="#7B7B8B"
-          onChangeText={handleChangeText}
-          secureTextEntry={title === "Password" && !showPassword}
-          {...props}
-        />
-      )}
-      
+        {title === "Username" ? (
+          <TextInput
+            className="flex-1 text-white font-psemibold text-base"
+            placeholder="Choose a cool username..."
+            placeholderTextColor="#7B7B8B"
+            {...props}
+          />
+        ) : (
+          <TextInput
+            className="flex-1 text-white font-psemibold text-base"
+            value={value}
+            placeholder="*********"
+            placeholderTextColor="#7B7B8B"
+            onChangeText={handleChangeText}
+            secureTextEntry={title === "Password" && !showPassword}
+            {...props}
+          />
+        )}
+
         {title === "Password" && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
@@ -56,13 +49,6 @@ const FormField = ({
             />
           </TouchableOpacity>
         )}
-
-{title === "Username" && (
-          <TouchableOpacity onPress={()=>regenUsername()}>
-           <Ionicons name="reload" size={24} color={"gray"} />
-          </TouchableOpacity>
-        )}
-
       </View>
     </View>
   );
