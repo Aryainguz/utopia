@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native'
 
 const NotificationBanner = ({user,notification,imageURI}) => {
   return (
-    <View className="flex-row items-center p-4 border-y-[0.5px] border-white">
+    <View className="flex-row items-center py-7 px-2 border-y-[0.5px] border-white">
      <TouchableOpacity
     //   onPress={() => navigation.navigate("Profile")}
       >
