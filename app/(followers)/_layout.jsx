@@ -13,7 +13,7 @@ const Layout = () => {
         options={{
           title: 'Go Back',
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.navigate("profile")} style={{ marginHorizontal: 10 }}>
+            <TouchableOpacity onPress={() => router.replace("profile")} style={{ marginHorizontal: 10 }}>
               <Icon name="arrow-back" size={25} color="#fff" />
             </TouchableOpacity>
           ),

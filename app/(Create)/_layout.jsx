@@ -13,7 +13,7 @@ const Layout = () => {
         options={{
           title: 'Create Post',
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.navigate("timeline")} style={{ marginHorizontal: 10 }}>
+            <TouchableOpacity onPress={() => router.replace("timeline")} style={{ marginHorizontal: 10 }}>
               <Icon name="arrow-back" size={25} color="#fff" />
             </TouchableOpacity>
           ),

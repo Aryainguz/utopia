@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import LikedPosts from "../../components/LikedPosts";
-import UserPosts from "../../components/UserPosts";
+import LikedPosts from "../../../components/LikedPosts";
+import UserPosts from "../../../components/UserPosts";
 
 const ProfilePage = () => {
   const Tab = createMaterialTopTabNavigator();
