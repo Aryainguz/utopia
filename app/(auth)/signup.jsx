@@ -1,6 +1,5 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { generateUsername } from "friendly-username-generator";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -15,7 +14,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
-import SelectDropdown from "react-native-select-dropdown";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
 
@@ -37,18 +35,10 @@ const SignUp = () => {
 
   const [isLoading, setLoading] = useState(false);
 
-  const [username, setUsername] = useState(generateUsername());
+  const [username, setUsername] = useState();
   const [interests, setInterests] = useState([]);
 
 
-  const regenUsername = () => {
-    const options = {
-      useHyphen: true, // if false, a hyphen will NOT be used. (True by default)
-      useRandomNumber: false, // if false, a random number will NOT be appended to the end of the random username. (True by default)
-    };
-    const gen_username = generateUsername(options);
-    setUsername(gen_username);
-  };
 
   const [form, setForm] = useState({
     username: username,
@@ -103,40 +93,11 @@ const SignUp = () => {
             otherStyles="mt-7"
             keyboardType="username-address"
             username={username}
-            regenUsername={regenUsername}
           />
-
-
-<SelectDropdown
-    data={genders}
-
-    renderButton={(selectedItem, isOpened) => {
-      return (
-        <View style={styles.dropdownButtonStyle}>
-          {selectedItem && (
-            <Icon name={selectedItem.icon} style={styles.dropdownButtonIconStyle} />
-          )}
-          <Text style={styles.dropdownButtonTxtStyle}>
-            {(selectedItem && selectedItem.title) || 'Select your gender'}
-          </Text>
-        </View>
-      );
-    }}
-    renderItem={(item, index, isSelected) => {
-      return (
-        <View style={{...styles.dropdownItemStyle, ...(isSelected && {backgroundColor: '#D2D9DF'})}}>
-          <Icon name={item.icon} style={styles.dropdownItemIconStyle} />
-          <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
-        </View>
-      );
-    }}
-    showsVerticalScrollIndicator={false}
-    dropdownStyle={styles.dropdownMenuStyle}
-  />
 
           <View className="space-y-2 mt-2">
             <Text className="text-base text-gray-100 font-pmedium py-2">
-              Select Interests (Max 3)
+              Select Clan 
             </Text>
             <View className="w-full h-16 bg-black-100 rounded-2xl my-7 border-black-200 focus:border-violet-400">
               <SectionedMultiSelect
