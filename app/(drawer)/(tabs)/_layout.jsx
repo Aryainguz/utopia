@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Tabs } from "expo-router";
+import { Tabs, useNavigation } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
@@ -22,6 +22,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabsLayout = () => {
+  const navigation = useNavigation();
   return (
     <>
       <Tabs
@@ -44,7 +45,7 @@ const TabsLayout = () => {
             height: 100,
             },
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Image
                   source={{
                     uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",

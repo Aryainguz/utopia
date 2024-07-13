@@ -15,7 +15,7 @@ export default function CustomDrawerContent(props) {
             }}
             className="h-24 w-24 rounded-full mx-auto mt-10 mb-4"
           />
-          <Text className="text-white text-center text-2xl font-bold mb-10">
+          <Text className="text-white text-center text-xl font-bold mb-10">
             @username
           </Text>
       <DrawerItemList
