@@ -3,7 +3,8 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { useRouter } from 'expo-router';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-export default function CustomDrawerContent(props) {
+export default function CustomDrawerContent(props) {4
+  
   const router = useRouter();
   return (
     <DrawerContentScrollView {...props} 

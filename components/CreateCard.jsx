@@ -46,7 +46,7 @@ const CreateCard = () => {
   </View>
   <View className="flex flex-row justify-end px-6 py-4">
   {
-    text.length == 275 ?
+    text.length == 225 ?
     <Text className="text-red-500 text-md font-pregular">You have reached the maximum limit of 200 characters</Text>
     : <Text className="text-white text-md font-pregular">{text.length}/225</Text>
     }
