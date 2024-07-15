@@ -4,11 +4,8 @@ import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
-  Pressable,
-  ScrollView,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {

@@ -47,7 +47,7 @@ const ProfilePage = () => {
           <AntDesign name="adduser" size={28} color="white" />
         </View>
       </View>
-      <View className="flex-1 mt-4">
+      <View className="flex-1 mt-3">
         <Tab.Navigator
           screenOptions={{
             tabBarActiveTintColor: "white",

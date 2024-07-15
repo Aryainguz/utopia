@@ -13,12 +13,15 @@ const FollowCard = ({username,userImg}) => {
       />
       <Text className="text-white ml-1 font-psemibold"
       >@{username}</Text>
+
+      <Text className="text-gray-400 text-xs ml-auto">Follows you</Text>
+
       <TouchableOpacity
         className="ml-auto"
       >
 
         
-        <Text className="text-white bg-purple-500 p-2 rounded-lg">Follow</Text>
+        <Text className="text-white bg-purple-500 px-3 py-2 rounded-lg">Follow</Text>
       </TouchableOpacity>
     </View>
   )
