@@ -25,7 +25,7 @@ Express yourself in
         Utopia.
       </Text>
       <TouchableOpacity className="bg-violet-400 rounded-xl p-4 my-2 w-[70vw]"
-      onPress={() =>router.push("/timeline")}>
+      onPress={() =>router.push("/onBoarding")}>
         <Text className="text-white font-pregular text-center text-base"> 
           Enter Now
         </Text>
