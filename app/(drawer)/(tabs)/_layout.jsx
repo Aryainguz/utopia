@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Tabs, useNavigation } from "expo-router";
+import { router, Tabs, useNavigation } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
@@ -62,7 +62,7 @@ const TabsLayout = () => {
             ),
 
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+              <TouchableOpacity onPress={() => router.replace("settings")}>
                 <Ionicons
                   name="settings-outline"
                   size={24}

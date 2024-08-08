@@ -22,25 +22,43 @@ export default function CustomDrawerContent(props) {4
       <DrawerItemList
       {...props}
       />
-    <View style={styles.logoutContainer}>
 
+      <View style={styles.settingsContainer}>
         <DrawerItem
-          label="Logout"
+          label="Settings"
           onPress={() => {
-            router.replace('/');
+            router.push('/settings');
           }}
-          style={styles.logout}
-          labelStyle={styles.logoutLabel}
+          style={styles.settings}
+          labelStyle={styles.settingsLabel}
           icon={({ focused, size }) => (
-
             <Ionicons
-              name="log-out"
+              name="settings"
               size={size}
               color={focused ? 'white' : 'gray'}
-              />
+            />
           )}
         />
       </View>
+      <View style={styles.logoutContainer}>
+
+<DrawerItem
+  label="Logout"
+  onPress={() => {
+    router.replace('/');
+  }}
+  style={styles.logout}
+  labelStyle={styles.logoutLabel}
+  icon={({ focused, size }) => (
+
+    <Ionicons
+      name="log-out"
+      size={size}
+      color={focused ? 'white' : 'gray'}
+      />
+  )}
+/>
+</View>
     </DrawerContentScrollView>
   );
 }
@@ -53,6 +71,19 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   logoutLabel: {
+    color: 'white',
+    fontSize: 18, // Make text bigger if needed
+    paddingVertical: 10,
+    marginHorizontal: -10,
+    marginVertical: -10,
+  },
+  settingsContainer: {
+    borderTopWidth: 1,
+    borderTopColor: 'white',
+    marginTop: 10,
+    paddingTop: 10,
+  },
+  settingsLabel: {
     color: 'white',
     fontSize: 18, // Make text bigger if needed
     paddingVertical: 10,
