@@ -78,7 +78,7 @@ const SignUp = () => {
     if (res.ok) {
       if(data.success) {
         Alert.alert("Success", "Account created successfully!");
-        router.push("/signin");
+        router.replace("/signin");
       }
     } else {
       Alert.alert("Error", "Account creation failed, try unique username");

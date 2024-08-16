@@ -1,9 +1,47 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-export default function CustomDrawerContent(props) {4
+export default function CustomDrawerContent(props) {
+
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@user_details');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.error('Error reading user details:', e);
+    }
+  };
+  
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const userDetails = await getUserDetails();
+      if (userDetails) {
+       setUserDetails(userDetails);
+       console.log(userDetails)
+      } else {
+        console.log('No user details found');
+      }
+    };
+  
+    fetchUserDetails();
+  }, []);
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('@user_details');
+      console.log('User details removed');
+      router.replace('/signin');
+    } catch (e) {
+      console.error('Error removing user details:', e);
+    }
+  };
+
+  
   
   const router = useRouter();
   return (
@@ -12,12 +50,12 @@ export default function CustomDrawerContent(props) {4
     >
       <Image
             source={{
-              uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
+              uri: userDetails?.avatarUrl,
             }}
             className="h-24 w-24 rounded-full mx-auto mt-10 mb-4"
           />
           <Text className="text-white text-center text-xl font-bold mb-10">
-            @username
+            {userDetails?.username}
           </Text>
       <DrawerItemList
       {...props}
@@ -25,15 +63,15 @@ export default function CustomDrawerContent(props) {4
 
       <View style={styles.settingsContainer}>
         <DrawerItem
-          label="Settings"
+          label="Edit Profile"
           onPress={() => {
             router.push('/settings');
           }}
           style={styles.settings}
           labelStyle={styles.settingsLabel}
           icon={({ focused, size }) => (
-            <Ionicons
-              name="settings"
+            <Feather
+            name='edit-3'
               size={size}
               color={focused ? 'white' : 'gray'}
             />
@@ -44,9 +82,7 @@ export default function CustomDrawerContent(props) {4
 
 <DrawerItem
   label="Logout"
-  onPress={() => {
-    router.replace('/');
-  }}
+  onPress={() => logout()}
   style={styles.logout}
   labelStyle={styles.logoutLabel}
   icon={({ focused, size }) => (

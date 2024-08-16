@@ -1,7 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, Tabs, useNavigation } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -22,6 +23,30 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabsLayout = () => {
+  const [userDetails, setUserDetails] = useState({});
+
+  const getUserDetails = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@user_details');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.error('Error reading user details:', e);
+    }
+  };
+  
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const userDetails = await getUserDetails();
+      if (userDetails) {
+       setUserDetails(userDetails);
+       console.log(userDetails)
+      } else {
+        console.log('No user details found');
+      }
+    };
+  
+    fetchUserDetails();
+  }, []);
   const navigation = useNavigation();
   return (
     <>
@@ -48,7 +73,7 @@ const TabsLayout = () => {
               <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Image
                   source={{
-                    uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
+                    uri: userDetails?.avatarUrl,
                   }}
                   className="h-10 w-10 rounded-full ml-4"
                 />

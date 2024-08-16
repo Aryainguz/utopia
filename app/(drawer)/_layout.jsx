@@ -1,8 +1,8 @@
+import { Feather } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { withLayoutContext } from 'expo-router';
 import React from 'react';
 import CustomDrawerContent from '../../components/CustomDrawer';
-import { Ionicons } from '@expo/vector-icons';
 
 
 const DrawerNavigator = createDrawerNavigator().Navigator;
@@ -33,7 +33,7 @@ export default function DrawerLayout() {
       <Drawer.Screen name="(tabs)" options={{ headerShown: false,
         title: 'Home',
         drawerIcon: ({ focused, size }) => (
-          <Ionicons
+          <Feather
             name="home"
             size={size}
             color={focused ? 'white' : 'gray'}
