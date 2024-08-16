@@ -1,24 +1,42 @@
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Dimensions,
   Image,
   ScrollView,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
 
 const SignIn = () => {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const userCheck_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/user/login`;
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
-  const submit = async () => {};
+  const submit = async () => {
+    if (password == undefined || username == undefined) {
+      Alert.alert("Fill all fields", "Please fill in all fields");
+    }
+    else{
+      await fetch(userCheck_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer LoremI[psum]&inguz.dev",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -38,27 +56,28 @@ const SignIn = () => {
           </Text>
 
           <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
+            placeholder="Enter your username"
+            title=" Username"
+            value={username}
+            onChangeText={(e) => setUsername(e)}
             otherStyles="mt-7"
-            keyboardType="email-address"
           />
 
           <FormField
             title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
+            value={password}
+            handleChangeText={(e) => setPassword(e)}
             otherStyles="mt-7"
           />
 
-        <TouchableOpacity className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]">
-          <Link href={'/timeline'}>
-          <Text className="text-white font-pregular text-center text-base"> 
-            Log in
-          </Text>
-          </Link>
-        </TouchableOpacity>
+          <TouchableOpacity
+            className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]"
+            onPress={submit}
+          >
+            <Text className="text-white font-pregular text-center text-base">
+              Log in
+            </Text>
+          </TouchableOpacity>
 
           <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">

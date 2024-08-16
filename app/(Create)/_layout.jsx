@@ -17,18 +17,6 @@ const Layout = () => {
               <Icon name="arrow-back" size={25} color="#fff" />
             </TouchableOpacity>
           ),
-             headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                // Logic for posting the tweet can go here
-                console.log('Tweet posted');
-                router.back(); // Navigate back after posting
-              }}
-              style={{ marginRight: 5,backgroundColor: '#7C3AED',marginTop:7,paddingHorizontal: 25,paddingVertical:10,borderRadius:30}}
-            >
-              <Text style={{ color: '#fff', fontSize: 16 }}>Post</Text>
-            </TouchableOpacity>
-          ),
           headerStyle: {
             backgroundColor: '#161622', 
           },

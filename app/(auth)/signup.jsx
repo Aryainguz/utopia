@@ -1,6 +1,6 @@
-import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { Link, router } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -10,72 +10,88 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
 
-const items = [
-  { name: "Software", id: 1 },
-  { name: "Sports", id: 2 },
-  { name: "Booknotics", id: 3 },
-  { name: "Enterntainment", id: 4 },
-  { name: "Politics and News", id: 5 },
-];
-
-const genders = [
-  { title: 'Male', icon: 'male' },
-  { title: 'Female', icon: 'female' },
-]
-
 const SignUp = () => {
-  const [selectedItems, setSelectedItems] = useState([]);
+  const getAvatar_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/getavatar`;
+  const register_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/user/register`;
+  
+  const main = async () => {
+    setAvatarLoading(true);
+    const res = await fetch(getAvatar_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer LoremI[psum]&inguz.dev",
+      },
+    });
+    const data = await res.json();
+    setAvatar(data.url);
+    setAvatarLoading(false);
+  };
+  useEffect(() => {
+    main();
+  }, []);
 
-  const [isLoading, setLoading] = useState(false);
+  const [avatar, setAvatar] = useState();
+  const [avatarLoading, setAvatarLoading] = useState(true);
 
-  const [username, setUsername] = useState();
-  const [interests, setInterests] = useState([]);
-
-
-
-  const [form, setForm] = useState({
-    username: username,
-    password: "",
-    interests: interests,
-  });
-
-  const submit = async () => {
-    if (form.password === "" || selectedItems.length === 0) {
-      Alert.alert("Fill all fields", "Please fill in all fields");
-    }
-    if (form.password.length < 8) {
-      Alert.alert("Password is too short", "Password must be at least 8 characters");
-    }
-
-    setLoading(true);
-    try {
-      form.interests = selectedItems.map((item) => items[item-1].name);
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setLoading(false);
-    }
+  const Regenerate = () => {
+    main();
   };
 
-  const changeSelectedItems = (selectedItems) => {
-    if (selectedItems.length > 3) {
-      selectedItems.shift();
+  const [isLoading, setLoading] = useState(false);
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const submit = async () => {
+    if (password == undefined || username == undefined) {
+      Alert.alert("Fill all fields", "Please fill in all fields");
     }
-    setSelectedItems(selectedItems);
+    else if (password.length < 8) {
+      Alert.alert(
+        "Password is too short",
+        "Password must be at least 8 characters"
+      );
+    }
+    else{
+      console.log(username, password);
+    setLoading(true);
+    const res = await fetch(register_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer LoremI[psum]&inguz.dev",
+      },
+      body: JSON.stringify({
+        avatarUrl: avatar,
+        username: username,
+        password: password,
+      }),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      if(data.success) {
+        Alert.alert("Success", "Account created successfully!");
+        router.push("/signin");
+      }
+    } else {
+      Alert.alert("Error", "Account creation failed, try unique username");
+    }
+  }
+
   };
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View
-          className="w-full flex justify-center h-full px-4 my-6"
+          className="w-full flex justify-center h-full px-4 mb-6"
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
@@ -84,47 +100,43 @@ const SignUp = () => {
             <Image source={logo} className="h-7 w-7" />
           </View>
 
-          <Text className="text-2xl font-semibold text-white mt-6 font-psemibold">
-            SignUp to utopia.
-          </Text>
+          <View className="space-y-2 mt-2 items-center">
+         {
+          avatarLoading ? <ActivityIndicator size="large" className="my-10"
+          color="#fff" /> : 
+         <Image
+              source={{ uri: avatar }}
+              className="h-28 w-28 rounded-full mb-1"
+            />}
+
+            <TouchableOpacity
+              className="flex flex-row items-center"
+              onPress={Regenerate}
+            >
+              <Text className="text-lg font-psemibold text-gray-100">
+                Regenrate
+              </Text>
+              <Ionicons
+                name="refresh"
+                size={20}
+                color="#fff"
+                style={{ marginLeft: 2, marginBottom: 2 }}
+              />
+            </TouchableOpacity>
+          </View>
 
           <FormField
             title="Username"
             otherStyles="mt-7"
             keyboardType="username-address"
             username={username}
+            onChangeText={(e) => setUsername(e)}
           />
-
-          <View className="space-y-2 mt-2">
-            <Text className="text-base text-gray-100 font-pmedium py-2">
-              Select Clan 
-            </Text>
-            <View className="w-full h-16 bg-black-100 rounded-2xl my-7 border-black-200 focus:border-violet-400">
-              <SectionedMultiSelect
-                items={items}
-                IconRenderer={Icon}
-                uniqueKey="id"
-                onSelectedItemsChange={changeSelectedItems}
-                selectedItems={selectedItems}
-                searchPlaceholderText="Search clans..."
-                modalAnimationType="slide"
-                colors={{ primary: "#7C3AED" }}
-                confirmText="Select"
-              />
-            </View>
-          </View>
 
           <FormField
             title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles={
-              selectedItems.length == 3
-                ? "mt-14"
-                : selectedItems.length > 0
-                ? "mt-6"
-                : "mt-0"
-            }
+            value={password}
+            handleChangeText={(e) => setPassword(e)}
           />
 
           <TouchableOpacity
@@ -134,16 +146,16 @@ const SignUp = () => {
             onPress={submit}
           >
             <Text className="text-white font-pregular text-center text-base">
-              SignUp {isLoading && (
-              <ActivityIndicator
-                animating={isLoading}
-                color="#fff"
-                size="small"
-                className="ml-2"
-              />
-            )}
+              SignUp{" "}
+              {isLoading && (
+                <ActivityIndicator
+                  animating={isLoading}
+                  color="#fff"
+                  size="small"
+                  className="ml-2"
+                />
+              )}
             </Text>
-            
           </TouchableOpacity>
 
           <View className="flex justify-center pt-5 flex-row gap-2">
@@ -173,18 +185,18 @@ const styles = StyleSheet.create({
   dropdownButtonStyle: {
     width: 200,
     height: 50,
-    backgroundColor: '#E9ECEF',
+    backgroundColor: "#E9ECEF",
     borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 12,
   },
   dropdownButtonTxtStyle: {
     flex: 1,
     fontSize: 18,
-    fontWeight: '500',
-    color: '#151E26',
+    fontWeight: "500",
+    color: "#151E26",
   },
   dropdownButtonArrowStyle: {
     fontSize: 28,
@@ -194,27 +206,27 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   dropdownMenuStyle: {
-    backgroundColor: '#E9ECEF',
+    backgroundColor: "#E9ECEF",
     borderRadius: 8,
   },
   dropdownItemStyle: {
-    width: '100%',
-    flexDirection: 'row',
+    width: "100%",
+    flexDirection: "row",
     paddingHorizontal: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 8,
   },
   dropdownItemTxtStyle: {
     flex: 1,
     fontSize: 18,
-    fontWeight: '500',
-    color: '#151E26',
+    fontWeight: "500",
+    color: "#151E26",
   },
   dropdownItemIconStyle: {
     fontSize: 28,
     marginRight: 8,
-  }
+  },
 });
 
 export default SignUp;

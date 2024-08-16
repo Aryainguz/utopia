@@ -28,7 +28,20 @@ const FormField = ({
             placeholderTextColor="#7B7B8B"
             {...props}
           />
-        ) : (
+        ) : 
+        
+        title === " Username" ? 
+        (
+          <TextInput
+            className="flex-1 text-white font-psemibold text-base"
+            placeholder="Enter your username..."
+            placeholderTextColor="#7B7B8B"
+            
+            {...props}
+          />
+        ):
+        
+        (
           <TextInput
             className="flex-1 text-white font-psemibold text-base"
             value={value}

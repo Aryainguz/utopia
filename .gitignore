@@ -9,7 +9,7 @@ server/
 dist/
 web-build/
 server
-
+.env
 # Native
 *.orig.*
 *.jks
