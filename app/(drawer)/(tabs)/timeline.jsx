@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ExploreTimeline from '../../../components/ExploreTimleline';
 import ForTimeline from '../../../components/ForTimeline';
 
 const Tab = createMaterialTopTabNavigator();
@@ -15,7 +16,7 @@ const timeline = ()=>{
     }}
     >
       <Tab.Screen name="For You" component={ForTimeline} />
-      <Tab.Screen name="Explore" component={ForTimeline} />
+      <Tab.Screen name="Explore" component={ExploreTimeline} />
     </Tab.Navigator>
   );
 }

@@ -23,7 +23,6 @@ export default function CustomDrawerContent(props) {
       const userDetails = await getUserDetails();
       if (userDetails) {
        setUserDetails(userDetails);
-       console.log(userDetails)
       } else {
         console.log('No user details found');
       }
@@ -34,7 +33,6 @@ export default function CustomDrawerContent(props) {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem('@user_details');
-      console.log('User details removed');
       router.replace('/signin');
     } catch (e) {
       console.error('Error removing user details:', e);

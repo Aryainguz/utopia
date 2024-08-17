@@ -59,7 +59,7 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id }) => {
           </TouchableOpacity>
         </View>
         <Text className="font-pextralight relative left-16 bottom-6 mb-4 text-white">
-          - he/him
+          - yet another dreamer
         </Text>
 
         <Link href={`/blog/${id}`} asChild className="relative bottom-2">

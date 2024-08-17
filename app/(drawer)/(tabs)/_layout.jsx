@@ -39,7 +39,6 @@ const TabsLayout = () => {
       const userDetails = await getUserDetails();
       if (userDetails) {
        setUserDetails(userDetails);
-       console.log(userDetails)
       } else {
         console.log('No user details found');
       }

@@ -54,7 +54,6 @@ const SignIn = () => {
       if (res.ok) {
         if (data.success) {
           Alert.alert("Login Successful", "You have successfully logged in");
-          console.log(data.user);
           saveUserDetails(data.user);
           router.replace("/timeline");
         }
