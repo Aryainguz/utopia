@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ExploreTimeline from '../../../components/ExploreTimleline';
 import ForTimeline from '../../../components/ForTimeline';
+import ExploreTimeline from '../../../components/ExploreTimeline';
 
 const Tab = createMaterialTopTabNavigator();
 

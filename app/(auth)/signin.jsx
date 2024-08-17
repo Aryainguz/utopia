@@ -42,7 +42,7 @@ const SignIn = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer LoremI[psum]&inguz.dev",
+          "Authorization": "Bearer LoremI[psum]&inguz.dev",
         },
         body: JSON.stringify({
           username: username,

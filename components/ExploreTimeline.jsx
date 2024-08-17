@@ -1,11 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-    Animated,
-    RefreshControl,
-    View
-} from "react-native";
+import { Alert, Animated, RefreshControl, View } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
 import data from "../data.json";
 import BlogCard from "./BlogCard";
@@ -13,15 +9,80 @@ import BlogCard from "./BlogCard";
 const ExploreTimeline = () => {
 
 
-  const [refreshing, setRefreshing] = useState(false);
-  const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
+
+  function timeAgo(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = Math.floor((now - date) / 1000); // Difference in seconds
+  
+    const intervals = [
+      { label: 'year', seconds: 31536000 },
+      { label: 'month', seconds: 2592000 },
+      { label: 'week', seconds: 604800 },
+      { label: 'day', seconds: 86400 },
+      { label: 'hour', seconds: 3600 },
+      { label: 'minute', seconds: 60 },
+      { label: 'second', seconds: 1 }
+    ];
+  
+    for (const interval of intervals) {
+      const time = Math.floor(diff / interval.seconds);
+      if (time > 1) {
+        return `${time} ${interval.label}s ago`;
+      } else if (time === 1) {
+        return `${time} ${interval.label} ago`;
+      }
+    }
+  
+    return 'just now';
   }
+  
+
+  const [blogs, setBlogs] = useState(data);
+  const getBlogs_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/blog/all`;
+
+  // Function to shuffle the array
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch(getBlogs_URL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer LoremI[psum]&inguz.dev",
+        },
+      });
+      const data = await res.json();
+      if(res.ok){
+        shuffleArray(data.posts);
+        setBlogs(data.posts);
+      }
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      Alert.alert("Error", "An error occurred while fetching blogs");
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    // Simulate a network request
-    wait(1000).then(() => setRefreshing(false));
+    const refeshBlogs = async () => {
+      setRefreshing(true);
+      await fetchBlogs();
+      setRefreshing(false);
+    };
+    refeshBlogs();
   }, []);
 
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -43,31 +104,58 @@ const ExploreTimeline = () => {
   }, [scrollY]);
 
 
+
+
+    // Simulate a call to your API to increase views
+  const increaseViewCount = async () => {
+    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/increaseview/all`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer LoremI[psum]&inguz.dev",
+      },
+    })
+  };
+
+  // Increase views when the card is rendered
+  useEffect(() => {
+    increaseViewCount();
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
-      <Animated.FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <BlogCard
-            name={item.name}
-            username={item.username}
-            time={item.time}
-            blog={item.blog}
-            heartCount={item.heartCount}
-            uri={item.uri}
-            id={item.id}
-          />
-        )}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        scrollEventThrottle={16}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#fff" />
-        }
-      />
+       {blogs == [] ? (
+          <ActivityIndicator size="large" color="#fff" />
+      ) : (
+        <Animated.FlatList
+          data={blogs}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <BlogCard
+              name={item.user?.username}
+              username={item.user?.username}
+              time={timeAgo(item.createdAt)}
+              blog={item?.content}
+              heartCount={item.likes} 
+              impressions={item.impressions}
+              uri={item.user?.avatarUrl}
+              id={item.id}
+            />
+          )}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={16}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#fff"
+            />
+          }
+        />
+      )}
       {isScrollingUp && (
         <FloatingAction
           onPressMain={() => router.navigate("Create")}
