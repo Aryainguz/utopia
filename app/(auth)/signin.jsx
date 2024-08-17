@@ -1,6 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link, router } from "expo-router";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Dimensions,
   Image,
@@ -12,54 +14,55 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = () => {
   const userCheck_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/user/login`;
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const saveUserDetails = async (userDetails) => {
     try {
       // Convert the user details object to a string
       const jsonValue = JSON.stringify(userDetails);
       // Save the string to AsyncStorage
-      await AsyncStorage.setItem('@user_details', jsonValue);
-      console.log('User details saved');
+      await AsyncStorage.setItem("@user_details", jsonValue);
     } catch (e) {
       // Saving error
-      console.error('Error saving user details:', e);
+      console.error("Error saving user details:", e);
     }
   };
 
   const submit = async () => {
     if (password == undefined || username == undefined) {
       Alert.alert("Fill all fields", "Please fill in all fields");
-    }
-    else{
+    } else {
+      setIsLoading(true);
       const res = await fetch(userCheck_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer LoremI[psum]&inguz.dev",
+          Authorization: "Bearer LoremI[psum]&inguz.dev",
         },
         body: JSON.stringify({
           username: username,
           password: password,
         }),
-      })
+      });
       const data = await res.json();
-      if(res.ok){
-        if(data.success){
+      setIsLoading(false);
+      if (res.ok) {
+        if (data.success) {
           Alert.alert("Login Successful", "You have successfully logged in");
-          console.log(data.user)
+          console.log(data.user);
           saveUserDetails(data.user);
           router.replace("/timeline");
         }
-      }
-      else{
-        Alert.alert("Login Failed", "Please check your credentials or try again");
+      } else {
+        Alert.alert(
+          "Login Failed",
+          "Please check your credentials or try again"
+        );
       }
     }
   };
@@ -98,10 +101,20 @@ const SignIn = () => {
 
           <TouchableOpacity
             className="bg-violet-400 rounded-xl p-4 mt-6 w-[90vw]"
+            activeOpacity={0.7}
+            disabled={isLoading}
             onPress={submit}
           >
             <Text className="text-white font-pregular text-center text-base">
-              Log in
+              Log in{" "}
+              {isLoading && (
+                <ActivityIndicator
+                  animating={isLoading}
+                  color="#fff"
+                  size="small"
+                  className="ml-2"
+                />
+              )}
             </Text>
           </TouchableOpacity>
 

@@ -59,7 +59,6 @@ const SignUp = () => {
       );
     }
     else{
-      console.log(username, password);
     setLoading(true);
     const res = await fetch(register_URL, {
       method: "POST",
