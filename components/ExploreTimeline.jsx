@@ -3,8 +3,8 @@ import { router } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Animated, RefreshControl, View } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
-import data from "../data.json";
 import BlogCard from "./BlogCard";
+import BlogCardSkeleton from "./SkeletonBlog";
 
 const ExploreTimeline = () => {
 
@@ -38,7 +38,7 @@ const ExploreTimeline = () => {
   }
   
 
-  const [blogs, setBlogs] = useState(data);
+  const [blogs, setBlogs] = useState(null);
   const getBlogs_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/blog/all`;
 
   // Function to shuffle the array
@@ -124,9 +124,7 @@ const ExploreTimeline = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
-       {blogs == [] ? (
-          <ActivityIndicator size="large" color="#fff" />
-      ) : (
+       {blogs ?  (
         <Animated.FlatList
           data={blogs}
           keyExtractor={(item, index) => index.toString()}
@@ -155,7 +153,13 @@ const ExploreTimeline = () => {
             />
           }
         />
-      )}
+      ):
+      <>
+      <BlogCardSkeleton />
+      <BlogCardSkeleton />
+      <BlogCardSkeleton />
+      </>
+      }
       {isScrollingUp && (
         <FloatingAction
           onPressMain={() => router.navigate("Create")}

@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Alert, Animated, RefreshControl, Text, View } from "react-native";
+import { Alert, Animated, RefreshControl, View } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
 import BlogCard from "./BlogCard";
+import BlogCardSkeleton from "./SkeletonBlog";
 
 const ForTimeline = () => {
   function timeAgo(dateString) {
@@ -33,7 +34,7 @@ const ForTimeline = () => {
     return "just now";
   }
 
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState(null);
   const getBlogs_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/blog/all`;
 
   // Function to shuffle the array
@@ -117,9 +118,7 @@ const ForTimeline = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
-      {blogs == [] ? (
-          <ActivityIndicator size="large" color="#fff" />
-      ) : (
+      {blogs ? (
         <Animated.FlatList
           data={blogs}
           keyExtractor={(item, index) => index.toString()}
@@ -148,7 +147,15 @@ const ForTimeline = () => {
             />
           }
         />
-      )}
+      )
+    : (
+      <>
+      <BlogCardSkeleton />
+      <BlogCardSkeleton />
+      <BlogCardSkeleton />
+      </>
+  ) 
+    }
 
       {isScrollingUp && (
         <FloatingAction

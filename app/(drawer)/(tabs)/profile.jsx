@@ -2,7 +2,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -12,8 +12,19 @@ import {
 } from "react-native";
 import LikedPosts from "../../../components/LikedPosts";
 import UserPosts from "../../../components/UserPosts";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const ProfilePage = () => {
+
+  const [userData, setUserData] = useState(null);
+  const fetchUserData = async () => {
+    const jsonValue = await AsyncStorage.getItem('@user_details');
+    setUserData(jsonValue != null ? JSON.parse(jsonValue) : null);
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const Tab = createMaterialTopTabNavigator();
   return (
     <SafeAreaView className="flex-1 bg-primary">
@@ -21,11 +32,13 @@ const ProfilePage = () => {
         <View className="items-center mt-6">
           <Image
             source={{
-              uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
+              uri: userData?.avatarUrl,
             }}
             className="h-20 w-20 rounded-full"
           />
-          <Text className="text-white text-lg mt-4">@username</Text>
+          <Text className="text-white text-lg mt-4">
+            @{userData?.username} 
+          </Text>
 
           <View className="flex-row mt-4">
             <Text className="text-white mr-2">100</Text>

@@ -2,10 +2,11 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import DetailedBlog from "../../components/DetailedBlog";
+import BlogCardSkeleton from "../../components/SkeletonBlog";
 
 const Blog = () => {
   const { id } = useLocalSearchParams();
-  const [Blog, setBlog] = useState([]);
+  const [Blog, setBlog] = useState(null);
 
   const increaseViwCount = async () => {
     try {
@@ -90,14 +91,18 @@ const Blog = () => {
           backgroundColor: "#161622",
         }}
       >
-        <DetailedBlog
+       { Blog ? ( <DetailedBlog
           name={Blog.user?.username}
           uri={Blog.user?.avatarUrl}
           blog={Blog?.content}
           time={timeAgo(Blog?.createdAt)}
           heartCount={3}
           impressions={Blog?.impressions}
-        />
+        />):
+        (
+          <BlogCardSkeleton />
+        )
+        }
       </ScrollView>
     </>
   );
