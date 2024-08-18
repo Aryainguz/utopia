@@ -14,6 +14,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
+import { ToastService } from 'react-native-toastier';
+
 
 const SignIn = () => {
   const userCheck_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/user/login`;
@@ -53,7 +55,11 @@ const SignIn = () => {
       setIsLoading(false);
       if (res.ok) {
         if (data.success) {
-          Alert.alert("Login Successful", "You have successfully logged in");
+          ToastService.show({ 
+            message: 'Logged In Successfully!', 
+            textStyle: { color: '#fff' }, 
+            contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+         })
           saveUserDetails(data.user);
           router.replace("/timeline");
         }

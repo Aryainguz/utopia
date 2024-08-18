@@ -1,8 +1,24 @@
-import React, { useEffect, useRef } from 'react';
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ToastService } from 'react-native-toastier';
+import { router } from 'expo-router';
 
 const CreateCard = () => {
+
+  const [userAvatar, setUserAvatar] = useState(null)
+  const [userId,setUserId] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUserAvatar = async () => {
+      const user = await AsyncStorage.getItem('@user_details')
+      const userAvatar = JSON.parse(user).avatarUrl
+      setUserAvatar(userAvatar)
+      setUserId(JSON.parse(user).id)
+    }
+    fetchUserAvatar()
+  }, [])
 
   const createPost_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/blog/new`;
   
@@ -14,6 +30,12 @@ const CreateCard = () => {
        setText(text)
        }
     const handleSubmit = async () => {
+      setIsLoading(true)
+      if (text.length == 0) {
+        setIsLoading(false)
+        Alert.alert('No Thoughts?', 'Please write something...')
+        return
+      }
     const res = await fetch(createPost_URL,
     {
       method: 'POST',
@@ -23,12 +45,26 @@ const CreateCard = () => {
       },
       body: JSON.stringify({
         content: text,
-        userId: "clzqjsfhz00003fll3p6oit10"
+        userId: userId
       })
     }
     )
     const data = await res.json()
-    console.log(data)
+    if(res.ok){
+      if(data.success){
+        ToastService.show({ 
+          message: 'Posted Created Successfully!', 
+          textStyle: { color: '#fff' }, 
+          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+       })
+       router.replace("/timeline")
+      }
+    }
+    else{
+      ToastService.showError({ 
+        message: "Something went wrong, Try again later!" 
+     }) 
+    }
     setText('')
     }
 
@@ -46,7 +82,7 @@ const CreateCard = () => {
     <Image
       source={
         {
-          uri: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg"
+          uri: userAvatar
         }
       }
       className="h-12 w-12 rounded-full"
@@ -76,7 +112,20 @@ const CreateCard = () => {
     handleSubmit
   }
   >
-    <Text className="text-white text-md font-pbold">Post</Text>
+    
+    {isLoading ? (
+                <ActivityIndicator
+                  animating={isLoading}
+                  color="#fff"
+                  size="small"
+                  className="ml-2"
+                />
+              ):
+              (
+                <Text className="text-white text-md font-pbold">Post</Text>
+
+              )
+              }
   </TouchableOpacity>
   </View>
   </ScrollView >

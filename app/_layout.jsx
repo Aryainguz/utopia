@@ -1,8 +1,9 @@
+import 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from "expo-font";
 import { router, Slot, SplashScreen } from "expo-router";
 import React, { useEffect, useState } from "react";
-import 'react-native-gesture-handler';
+import { ToastProvider } from 'react-native-toastier'
 
 const RootLayout = () => {
   const [user, setUser] = useState(null);
@@ -51,7 +52,11 @@ const RootLayout = () => {
 
   if (!isReady) return null; // Wait until the app is ready
 
-  return <Slot />;
+  return( 
+  <ToastProvider>
+  <Slot />
+  </ToastProvider>
+  )
 };
 
 export default RootLayout;

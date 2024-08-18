@@ -4,6 +4,7 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { ToastService } from 'react-native-toastier';
 
 export default function CustomDrawerContent(props) {
 
@@ -33,6 +34,11 @@ export default function CustomDrawerContent(props) {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem('@user_details');
+      ToastService.show({ 
+        message: 'Logged Out Successfully!', 
+        textStyle: { color: '#fff' }, 
+        contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+     })
       router.replace('/signin');
     } catch (e) {
       console.error('Error removing user details:', e);
