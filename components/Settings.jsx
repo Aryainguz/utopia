@@ -59,21 +59,22 @@ const Settings = () => {
 
   const handleUpdate = async () => {
     setLoading(true);
-    if (!username && !password) {
+    if (!username && !password && !avatar) {
       ToastService.showError({ 
         message: "Nothing to update!" 
      }) 
      setLoading(false);
       return;
     }
-    else if (username.length < 3 || password.length < 6) {
-      ToastService.showError({ 
-        message: "Username or Password is too short!" 
-     })
-      setLoading(false);
-      return;
-    }
+  
     else{
+      if (username?.length < 3 || password?.length < 6) {
+        ToastService.showError({ 
+          message: "Username or Password is too short!" 
+       })
+        setLoading(false);
+        return;
+      }else{
     const res = await fetch(update_URL, {
       method: "PUT",
       headers: {
@@ -101,7 +102,7 @@ const Settings = () => {
         message: "Something went wrong, Please Try again later!" 
      }) 
     }
-  }
+  }}
   }
 
 
