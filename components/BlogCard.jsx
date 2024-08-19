@@ -2,10 +2,10 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import * as Sharing from "expo-sharing";
 import React, { useRef } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 
-const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions }) => {
+const BlogCard = ({ name, time, username, blog, heartCount,userid, uri, id,impressions }) => {
   const previewLimit = 175;
   const viewShotRef = useRef();
 
@@ -35,12 +35,14 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
     <ViewShot ref={viewShotRef} options={{ format: "jpg", quality: 0.9 }}>
       <View className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
         <View className="flex flex-row justify-between items-center mb-2">
-          <View className="flex flex-row items-center">
+        <Link href={`/userprofile/${userid}`} asChild>
+          <Pressable className="flex flex-row items-center">
             <Image source={{ uri: uri }} className="h-11 w-11 rounded-full" />
             <Text className="text-lg font-pbold text-left ml-5 bottom-2 text-white">
               @{username}
             </Text>
-          </View>
+          </Pressable>
+          </Link>
           <TouchableOpacity
             onPress={handleShare}
             style={{ position: "relative" }}

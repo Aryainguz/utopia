@@ -56,8 +56,8 @@ const ForTimeline = () => {
         },
       });
       const data = await res.json();
+      console.log(data.posts[0])
       if (res.ok) {
-        shuffleArray(data.posts);
         setBlogs(data.posts);
       }
     } catch (error) {
@@ -133,6 +133,7 @@ const ForTimeline = () => {
               impressions={item?.impressions}
               uri={item.user?.avatarUrl}
               id={item?.id}
+              userid={item.user?.id}
             />
           )}
           onScroll={Animated.event(

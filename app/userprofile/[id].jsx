@@ -1,25 +1,33 @@
 // app/profile/index.js
-import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-  Image,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View
+    Image,
+    SafeAreaView,
+    Text,
+    View
 } from "react-native";
-import LikedPosts from "../../../components/LikedPosts";
-import UserPosts from "../../../components/UserPosts";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-const ProfilePage = () => {
+import AnotherUserPosts from "../../components/AnotherUserPosts";
+// import LikedPosts from "../../components/LikedPosts";
+const UserProfilePage = () => {
+
+  const { id } = useLocalSearchParams();
 
   const [userData, setUserData] = useState(null);
+
   const fetchUserData = async () => {
-    const jsonValue = await AsyncStorage.getItem('@user_details');
-    setUserData(jsonValue != null ? JSON.parse(jsonValue) : null);
-  };
+   const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/user/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer LoremI[psum]&inguz.dev",
+          },
+        });
+        const data = await res.json();
+        setUserData(data.user);
+    }
 
   useEffect(() => {
     fetchUserData();
@@ -77,12 +85,16 @@ const ProfilePage = () => {
             tabBarStyle: { backgroundColor: "#161622" },
           }}
         >
-          <Tab.Screen name="Posts" component={UserPosts} />
-          {/* <Tab.Screen name="Likes" component={LikedPosts} /> */}
+          <Tab.Screen name="Posts" component={AnotherUserPosts}
+          initialParams={{ userId: id }}
+          />
+          {/* <Tab.Screen name="Likes" component={LikedPosts}
+          initialParams={{ userId: id }}
+          /> */}
         </Tab.Navigator>
       </View>
     </SafeAreaView>
   );
 };
 
-export default ProfilePage;
+export default UserProfilePage;

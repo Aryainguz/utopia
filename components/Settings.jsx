@@ -104,6 +104,7 @@ const Settings = () => {
   }
   }
 
+
   return (
     <SafeAreaView className="flex-1 bg-primary items-center">
       <View className="flex-col items-center p-4 mt-16">
@@ -161,9 +162,13 @@ const Settings = () => {
         </TouchableOpacity>
 
       
-          <Text className="text-red-500  text-center text-base my-6 font-psemibold"> 
+          {/* <Text className="text-red-500  text-center text-base my-6 font-psemibold"
+          onPress={() => {
+            handleUserDelete();
+          }}
+          > 
           Delete Account
-          </Text>
+          </Text> */}
 
           </View>
 

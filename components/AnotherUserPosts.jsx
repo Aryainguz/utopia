@@ -5,7 +5,10 @@ import noposts from "../assets/images/noposts.png";
 import BlogCard from './BlogCard';
 import BlogCardSkeleton from './SkeletonBlog';
 
-const UserPosts = () => {
+const AnotherUserPosts = ({route}) => {
+
+
+    const id  = route.params.userId
 
   function timeAgo(dateString) {
     const date = new Date(dateString);
@@ -37,10 +40,19 @@ const UserPosts = () => {
 
   const [userBlogs, setUserBlogs] = useState(null);
   const [userData, setUserData] = useState(null);
+
   const fetchUserData = async () => {
-    const jsonValue = await AsyncStorage.getItem('@user_details');
-    setUserData(jsonValue != null ? JSON.parse(jsonValue) : null);
-  };
+   const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/user/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer LoremI[psum]&inguz.dev",
+          },
+        });
+        const data = await res.json();
+        setUserData(data.user);
+    }
+
   const getBlogs_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/blog/user/${userData?.id}`;
   const fetchBlogs = async () => {
     try {
@@ -48,7 +60,7 @@ const UserPosts = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer LoremI[psum]&inguz.dev",
+          "Authorization": "Bearer LoremI[psum]&inguz.dev",
         },
       });
       const data = await res.json();
@@ -64,11 +76,9 @@ const UserPosts = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
-  
   useEffect(() => {
     fetchBlogs();
   }, [userData]);
-
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
    {
@@ -108,4 +118,4 @@ const UserPosts = () => {
   )
 }
 
-export default UserPosts
+export default AnotherUserPosts
