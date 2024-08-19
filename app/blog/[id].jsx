@@ -17,6 +17,7 @@ const Blog = () => {
           Authorization: "Bearer LoremI[psum]&inguz.dev",
         },
       });
+      const data = await res.json()
     } catch (error) {
       console.error("Error increasing view count:", error);
       Alert.alert("Error", "An error occurred while increasing view count");

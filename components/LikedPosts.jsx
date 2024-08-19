@@ -49,7 +49,6 @@ const LikedPosts = () => {
         },
       });
       const data = await res.json();
-      console.log(data.posts);
       if (res.ok) {
         setuserLikedBlogs(data.posts);
       }

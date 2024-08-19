@@ -102,13 +102,14 @@ const ForTimeline = () => {
 
     // Simulate a call to your API to increase views
   const increaseViewCount = async () => {
-    await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/increaseview/all`, {
+    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/increaseview/all`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer LoremI[psum]&inguz.dev",
       },
     })
+    const data = await res.json()
   };
  
   // Increase views when the card is rendered

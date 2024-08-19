@@ -61,10 +61,7 @@ export default function CustomDrawerContent(props) {
           <Text className="text-white text-center text-xl font-bold mb-10">
             {userDetails?.username}
           </Text>
-      <DrawerItemList
-      {...props}
-      />
-
+    
       <View style={styles.settingsContainer}>
         <DrawerItem
           label="Edit Profile"
@@ -118,7 +115,6 @@ const styles = StyleSheet.create({
     marginVertical: -10,
   },
   settingsContainer: {
-    borderTopWidth: 1,
     borderTopColor: 'white',
     marginTop: 10,
     paddingTop: 10,

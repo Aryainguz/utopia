@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
-import data from "../data.json";
-import BlogCard from './BlogCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, Text, View } from 'react-native';
+import noposts from "../assets/images/noposts.png";
+import BlogCard from './BlogCard';
 import BlogCardSkeleton from './SkeletonBlog';
+
 const UserPosts = () => {
 
   function timeAgo(dateString) {
@@ -51,7 +52,6 @@ const UserPosts = () => {
         },
       });
       const data = await res.json();
-      console.log(data.posts)
       if (res.ok) {
         setUserBlogs(data.posts);
       }
@@ -77,7 +77,7 @@ const UserPosts = () => {
     </>
   ) : userBlogs.length === 0 ? (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center",backgroundColor:"#161622" }}>
-      <Text className="text-white font-pbold text-lg mb-6">No liked post yet!</Text>
+      <Text className="text-white font-pbold text-lg mb-6">No post yet!</Text>
   
       <Image source={noposts} style={{ width: 200, height: 200 }} />
     </View>
