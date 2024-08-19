@@ -1,8 +1,7 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { Link } from "expo-router";
 import * as Sharing from "expo-sharing";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 
@@ -10,8 +9,8 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
   const previewLimit = 175;
   const viewShotRef = useRef();
 
-  const [loved, setLoved] = useState(false);
-  const [showHeartcount, setshowHeartCount] = useState(heartCount);
+  // const [loved, setLoved] = useState(false);
+  // const [showHeartcount, setshowHeartCount] = useState(heartCount);
 
   const handleShare = async () => {
     if (!(await Sharing.isAvailableAsync())) {
@@ -30,56 +29,6 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
       console.log("Error sharing blog:", error);
     }
   };
-
-
-  function debounce(func, delay) {
-    let timeoutId;
-    return function (...args) {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  }
-
-  const handleLike = async (postid) => {
-    setLoved(true);
-    setshowHeartCount((prevCount) => prevCount + 1);
-    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/increaselike/${postid}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer LoremI[psum]&inguz.dev",
-      },
-    })
-    const data = await res.json()
-    console.log(data)
-
-  };
-
-  // Function to handle unliking
-  const handleUnlike = async (postid) => {
-    setLoved(false);
-    setshowHeartCount((prevCount) => prevCount - 1);
-    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/decreaselike/${postid}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer LoremI[psum]&inguz.dev",
-      },
-    })
-    const data = await res.json()
-    console.log(data)
-  };
-
-  // Debounced version of the like/unlike functions
-  const debouncedHandleLike = debounce((postid) => {
-    if (!loved) {
-      handleLike(postid);
-    } else {
-      handleUnlike(postid);
-    }
-  }, 500);
 
 
   return (

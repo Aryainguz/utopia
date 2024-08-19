@@ -33,7 +33,9 @@ const CreateCard = () => {
       setIsLoading(true)
       if (text.length == 0) {
         setIsLoading(false)
-        Alert.alert('No Thoughts?', 'Please write something...')
+             ToastService.showError({ 
+        message: "No thoughts?, Write whatever you want..." 
+     }) 
         return
       }
     const res = await fetch(createPost_URL,

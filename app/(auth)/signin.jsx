@@ -37,7 +37,9 @@ const SignIn = () => {
 
   const submit = async () => {
     if (password == undefined || username == undefined) {
-      Alert.alert("Fill all fields", "Please fill in all fields");
+      ToastService.showError({ 
+        message: "Please fill all the fields!" 
+     }) 
     } else {
       setIsLoading(true);
       const res = await fetch(userCheck_URL, {

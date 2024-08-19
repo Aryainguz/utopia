@@ -15,6 +15,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/images/triangular-logo.png";
 import FormField from "../../components/FormField";
+import { ToastService } from 'react-native-toastier';
+
 
 const SignUp = () => {
   const getAvatar_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/getavatar`;
@@ -50,19 +52,19 @@ const SignUp = () => {
 
   const submit = async () => {
     if (password == undefined || username == undefined) {
-      Alert.alert("Fill all fields", "Please fill in all fields");
+      ToastService.showError({ 
+        message: "Please fill all the fields!" 
+     }) 
     }
     else if (password.length < 8) {
-      Alert.alert(
-        "Password is too short",
-        "Password must be at least 8 characters"
-      );
+      ToastService.showError({ 
+        message: "Password is too short!" 
+     }) 
     }
     else if (username.length < 3) {
-      Alert.alert(
-        "Username is too short",
-        "Username must be at least 3 characters"
-      );
+      ToastService.showError({ 
+        message: "Username is too short!" 
+     }) 
     }
     else{
     setLoading(true);
@@ -82,7 +84,11 @@ const SignUp = () => {
 
     if (res.ok) {
       if(data.success) {
-        Alert.alert("Success", "Account created successfully!");
+        ToastService.show({ 
+          message: 'Account Created Successfully!', 
+          textStyle: { color: '#fff' }, 
+          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+       })
         router.replace("/signin");
       }
     } else {
