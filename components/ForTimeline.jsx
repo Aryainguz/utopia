@@ -56,7 +56,6 @@ const ForTimeline = () => {
         },
       });
       const data = await res.json();
-      console.log(data.posts[0])
       if (res.ok) {
         setBlogs(data.posts);
       }

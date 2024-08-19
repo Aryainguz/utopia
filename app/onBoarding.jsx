@@ -11,8 +11,8 @@ const onBoardingScreen = () => {
 
   return (
 <Onboarding
-  onSkip={() => router.replace("/signin")}
-  onDone={() => router.replace("/signin")}
+  onSkip={() => router.replace("/signup")}
+  onDone={() => router.replace("/signup")}
   subTitleStyles={{paddingHorizontal: 15}}
   pages={[
     {

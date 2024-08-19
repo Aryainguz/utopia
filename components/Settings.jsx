@@ -59,9 +59,9 @@ const Settings = () => {
 
   const handleUpdate = async () => {
     setLoading(true);
-    if (!username || !password) {
+    if (!username && !password) {
       ToastService.showError({ 
-        message: "Please fill all the fields!" 
+        message: "Nothing to update!" 
      }) 
      setLoading(false);
       return;
