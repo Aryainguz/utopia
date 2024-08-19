@@ -58,6 +58,12 @@ const SignUp = () => {
         "Password must be at least 8 characters"
       );
     }
+    else if (username.length < 3) {
+      Alert.alert(
+        "Username is too short",
+        "Username must be at least 3 characters"
+      );
+    }
     else{
     setLoading(true);
     const res = await fetch(register_URL, {

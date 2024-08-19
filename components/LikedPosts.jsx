@@ -79,6 +79,7 @@ const LikedPosts = () => {
   </View>
 ) : (
   <FlatList
+  backgroundColor="#161622"
     data={userLikedBlogs}
     keyExtractor={(item, index) => index.toString()}
     renderItem={({ item }) => (

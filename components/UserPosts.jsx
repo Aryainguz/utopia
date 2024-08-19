@@ -75,7 +75,7 @@ const UserPosts = () => {
       <BlogCardSkeleton />
       <BlogCardSkeleton />
     </>
-  ) : userBlogs.length === 0 ? (
+  ) : userBlogs.length == 0 ? (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center",backgroundColor:"#161622" }}>
       <Text className="text-white font-pbold text-lg mb-6">No post yet!</Text>
   
@@ -84,6 +84,7 @@ const UserPosts = () => {
   ) 
    :
    (<FlatList
+   backgroundColor="#161622"
       data={userBlogs}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (

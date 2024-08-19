@@ -9,17 +9,6 @@ import ViewShot from "react-native-view-shot";
 const DetailedBlog = ({ name, time, username, blog, heartCount, uri, id,impressions }) => {
   const viewShotRef = useRef();
 
-  const [loved, setLoved] = useState(false);
-  const [showHeartcount, setshowHeartCount] = useState(heartCount);
-
-  const handlelog = () => {
-    setLoved(!loved);
-    if (heartCount <= 0) {
-      setshowHeartCount(0);
-    }
-    setshowHeartCount(loved ? showHeartcount - 1 : showHeartcount + 1);
-  };
-
   const handleShare = async () => {
     if (!(await Sharing.isAvailableAsync())) {
       alert(`Sharing is not available on your platform`);
@@ -80,26 +69,7 @@ const DetailedBlog = ({ name, time, username, blog, heartCount, uri, id,impressi
             </Text>
           </View>
 
-          <View className="flex flex-row mr-3">
-            {loved ? (
-              <AntDesign
-                name="heart"
-                size={20}
-                color="red"
-                onPress={handlelog}
-              />
-            ) : (
-              <AntDesign
-                name="hearto"
-                size={20}
-                color="white"
-                onPress={handlelog}
-              />
-            )}
-            <Text className="text-sm font-pmedium text-left relative left-2 top-1 text-white">
-              {showHeartcount}
-            </Text>
-          </View>
+        
         </View>
 
         <Text className="text-sm font-pextralight text-left mt-2 text-white">

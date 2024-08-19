@@ -129,7 +129,7 @@ const ForTimeline = () => {
               username={item.user?.username}
               time={timeAgo(item?.createdAt)}
               blog={item?.content}
-              heartCount={3} // Adjust based on actual data
+              heartCount={item?.likes} // Adjust based on actual data
               impressions={item?.impressions}
               uri={item.user?.avatarUrl}
               id={item?.id}

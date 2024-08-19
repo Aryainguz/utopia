@@ -40,7 +40,9 @@ const ProfilePage = () => {
             @{userData?.username} 
           </Text>
 
-          <View className="flex-row mt-4">
+
+            {/* followers and following */}
+          {/* <View className="flex-row mt-4">
             <Text className="text-white mr-2">100</Text>
 
             <TouchableOpacity onPress={() => router.navigate("following")}>
@@ -51,14 +53,19 @@ const ProfilePage = () => {
             <TouchableOpacity onPress={() => router.navigate("followers")}>
               <Text className="text-gray-400">Followers</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
+
+
         </View>
-        <View className="absolute right-0 mr-6 mt-4">
+
+            {/* send follow request button   */}
+        {/* <View className="absolute right-0 mr-6 mt-4">
           
-          {/* <Feather name="settings" size={24} color="white" /> */}
+          <Feather name="settings" size={24} color="white" />
 
           <AntDesign name="adduser" size={28} color="white" />
-        </View>
+        </View> */}
+        
       </View>
       <View className="flex-1 mt-3">
         <Tab.Navigator

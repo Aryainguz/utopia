@@ -13,14 +13,6 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
   const [loved, setLoved] = useState(false);
   const [showHeartcount, setshowHeartCount] = useState(heartCount);
 
-  const handlelog = () => {
-    setLoved(!loved);
-    if (heartCount <= 0) {
-      setshowHeartCount(0);
-    }
-    setshowHeartCount(loved ? showHeartcount - 1 : showHeartcount + 1);
-  };
-
   const handleShare = async () => {
     if (!(await Sharing.isAvailableAsync())) {
       alert(`Sharing is not available on your platform`);
@@ -38,6 +30,57 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
       console.log("Error sharing blog:", error);
     }
   };
+
+
+  function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+
+  const handleLike = async (postid) => {
+    setLoved(true);
+    setshowHeartCount((prevCount) => prevCount + 1);
+    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/increaselike/${postid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer LoremI[psum]&inguz.dev",
+      },
+    })
+    const data = await res.json()
+    console.log(data)
+
+  };
+
+  // Function to handle unliking
+  const handleUnlike = async (postid) => {
+    setLoved(false);
+    setshowHeartCount((prevCount) => prevCount - 1);
+    const res = await fetch(`${process.env.EXPO_PUBLIC_BASE_URL}/blog/decreaselike/${postid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer LoremI[psum]&inguz.dev",
+      },
+    })
+    const data = await res.json()
+    console.log(data)
+  };
+
+  // Debounced version of the like/unlike functions
+  const debouncedHandleLike = debounce((postid) => {
+    if (!loved) {
+      handleLike(postid);
+    } else {
+      handleUnlike(postid);
+    }
+  }, 500);
+
 
   return (
     <ViewShot ref={viewShotRef} options={{ format: "jpg", quality: 0.9 }}>
@@ -94,26 +137,28 @@ const BlogCard = ({ name, time, username, blog, heartCount, uri, id,impressions 
             </Text>
           </View>
 
-          <View className="flex flex-row mr-3">
+          {/* like button */}
+          {/* <View className="flex flex-row mr-3">
             {loved ? (
               <AntDesign
                 name="heart"
                 size={20}
                 color="red"
-                onPress={handlelog}
+                onPress={()=>debouncedHandleLike(id)}
               />
             ) : (
               <AntDesign
                 name="hearto"
                 size={20}
                 color="white"
-                onPress={handlelog}
+                onPress={()=>debouncedHandleLike(id)}
               />
             )}
             <Text className="text-sm font-pmedium text-left relative left-2 top-1 text-white">
               {showHeartcount}
             </Text>
-          </View>
+          </View> */}
+          
         </View>
 
         <Text className="text-sm font-pextralight text-left mt-2 text-white">

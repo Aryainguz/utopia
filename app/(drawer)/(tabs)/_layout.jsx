@@ -107,7 +107,7 @@ const TabsLayout = () => {
           }}
         />
 
-
+{/* 
         <Tabs.Screen
           name="notifications"
           options={{
@@ -122,7 +122,7 @@ const TabsLayout = () => {
               />
             ),
           }}
-        />
+        /> */}
 
         <Tabs.Screen
           name="profile"
