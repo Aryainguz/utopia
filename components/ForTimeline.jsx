@@ -52,11 +52,12 @@ const ForTimeline = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer LoremI[psum]&inguz.dev",
+          "Authorization": "Bearer LoremI[psum]&inguz.dev",
         },
       });
       const data = await res.json();
-      if (res.ok) {
+      if(res.ok){
+        shuffleArray(data.posts);
         setBlogs(data.posts);
       }
     } catch (error) {

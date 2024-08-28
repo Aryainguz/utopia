@@ -33,7 +33,8 @@ const BlogCard = ({ name, time, username, blog, heartCount,userid, uri, id,impre
 
   return (
     <ViewShot ref={viewShotRef} options={{ format: "jpg", quality: 0.9 }}>
-      <View className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-white bg-primary mx-auto">
+      <View className="shadow-lg w-[100vw] p-4 h-auto border-y-[.4px] border-violet-500 bg-primary mx-auto"
+      >
         <View className="flex flex-row justify-between items-center mb-2">
         <Link href={`/userprofile/${userid}`} asChild>
           <Pressable className="flex flex-row items-center">

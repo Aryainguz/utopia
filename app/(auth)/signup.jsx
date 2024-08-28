@@ -30,11 +30,14 @@ const SignUp = () => {
         "Content-Type": "application/json",
         "Authorization": "Bearer LoremI[psum]&inguz.dev",
       },
+      cache: 'no-store',
+      next: { revalidate: 0 }
     });
     const data = await res.json();
     setAvatar(data.url);
     setAvatarLoading(false);
   };
+  
   useEffect(() => {
     main();
   }, []);
