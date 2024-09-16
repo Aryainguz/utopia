@@ -36,7 +36,9 @@ const CreateCard = () => {
         ToastService.show({ 
           message: 'No thought?, write whatever you want...', 
           textStyle: { color: '#fff' }, 
-          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70,
+            width: '90%',
+          } 
        })
         return
       }
@@ -59,14 +61,19 @@ const CreateCard = () => {
         ToastService.show({ 
           message: 'Posted Created Successfully!', 
           textStyle: { color: '#fff' }, 
-          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70,
+            width: '90%',
+          } 
        })
        router.replace("/timeline")
       }
     }
     else{
       ToastService.showError({ 
-        message: "Something went wrong, Try again later!" 
+        message: "Something went wrong, Try again later!",
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        } 
      }) 
     }
     setText('')

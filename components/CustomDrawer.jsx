@@ -37,7 +37,9 @@ export default function CustomDrawerContent(props) {
       ToastService.show({ 
         message: 'Logged Out Successfully!', 
         textStyle: { color: '#fff' }, 
-        contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+        contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70,
+          width: '90%',
+        } 
      })
       router.replace('/signin');
     } catch (e) {

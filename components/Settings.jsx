@@ -61,7 +61,10 @@ const Settings = () => {
     setLoading(true);
     if (!username && !password && !avatar) {
       ToastService.showError({ 
-        message: "Nothing to update!" 
+        message: "Nothing to update!", 
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        }
      }) 
      setLoading(false);
       return;
@@ -70,7 +73,10 @@ const Settings = () => {
     else{
       if (username?.length < 3 || password?.length < 6) {
         ToastService.showError({ 
-          message: "Username or Password is too short!" 
+          message: "Username or Password is too short!", 
+          contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+            ,width: '90%', 
+          }
        })
         setLoading(false);
         return;
@@ -94,12 +100,17 @@ const Settings = () => {
       ToastService.show({ 
         message: 'Profile Updated Successfully!', 
         textStyle: { color: '#fff' }, 
-        contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+        contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70,
+          width: '90%',
+        } 
      })
      router.replace("/timeline");
     } else {
       ToastService.showError({ 
-        message: "Something went wrong, Please Try again later!" 
+        message: "Something went wrong, Please Try again later!",
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        } 
      }) 
     }
   }}

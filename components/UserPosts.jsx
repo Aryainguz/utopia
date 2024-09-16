@@ -69,6 +69,10 @@ const UserPosts = () => {
     fetchBlogs();
   }, [userData]);
 
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#1E293B" }}>
    {

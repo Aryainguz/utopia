@@ -38,7 +38,10 @@ const SignIn = () => {
   const submit = async () => {
     if (password == undefined || username == undefined) {
       ToastService.showError({ 
-        message: "Please fill all the fields!" 
+        message: "Please fill all the fields!" ,
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        }
      }) 
     } else {
       setIsLoading(true);

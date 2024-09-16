@@ -56,17 +56,26 @@ const SignUp = () => {
   const submit = async () => {
     if (password == undefined || username == undefined) {
       ToastService.showError({ 
-        message: "Please fill all the fields!" 
+        message: "Please fill all the fields!" ,
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        }
      }) 
     }
     else if (password.length < 8) {
       ToastService.showError({ 
-        message: "Password is too short!" 
+        message: "Password is too short!" ,
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        }
      }) 
     }
     else if (username.length < 3) {
       ToastService.showError({ 
-        message: "Username is too short!" 
+        message: "Username is too short!" ,
+        contentContainerStyle: { backgroundColor: '#ff0000',flex:1, paddingLeft: 12, height: 70
+          ,width: '90%', 
+        }
      }) 
     }
     else{
@@ -90,7 +99,9 @@ const SignUp = () => {
         ToastService.show({ 
           message: 'Account Created Successfully!', 
           textStyle: { color: '#fff' }, 
-          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70} 
+          contentContainerStyle: { backgroundColor: '#a78bfa',flex:1, paddingLeft: 12, height: 70,
+            width: '90%', 
+          } 
        })
         router.replace("/signin");
       }
